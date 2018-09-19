@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+		<meta charset="UTF-8">
+		<title>首页</title>
+		<link rel="stylesheet" href="css/index.css" />
+		<link rel="stylesheet" href="css/swiper-4.3.3.min.css" />
+	</head>
+	<body>
+		<div id="box">
+			<!--头部-->
+			<div class="top">
+				<div class="left">
+					<span><img src="img/1.png"></span>
+					<span>咨询电话：010—62797221</span>
+				</div>
+				<div class="right">
+					<span></span>
+					<span></span>
+				</div>
+			</div>
+			<!--导航-->
+			<div class="nav">
+				<img src="img/logo.png">
+				<div id="btn">
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+				<ul class="list">
+						<li><a href="#">首页</a></li>
+						<li><a href="#">关于我们</a></li>
+						<li><a href="#">咨询活动</a></li>
+						<li><a href="#">权威师资</a></li>
+						<li><a href="course.html">精品课程</a></li>
+						<li><a href="#">招生简介</a></li>
+						<li><a href="#">清华同盟会</a></li>
+						<li><a href="signup.html">在线报名</a></li>
+				</ul>
+			</div>			
+			<!--轮播-->
+			<div class="swiper-container">
+			<!--放置内容的-->
+			<div class="swiper-wrapper">
+				<div class="swiper-slide"><img src="img/1.jpg"></div>
+				<div class="swiper-slide"><img src="img/2.jpg"></div>
+			</div>
+			<div class="swiper-pagination"></div>
+		</div>
+		<script src="js/swiper-4.3.3.min.js"></script>
+		<script>
+			var mySwiper = new Swiper(".swiper-container",{
+				loop:true,
+      			autoplay: {
+			        delay: 2500,
+			        disableOnInteraction: false,
+			      },
+				pagination:{
+					el:".swiper-pagination",
+					clickable: true,
+				}
+			})
+		</script>
+			<img src="img/flex.png" class="flex">
+			<!--精品课程-->
+			<div class="ke">
+				<h3>精品课程</h3>
+				<p>Excellent course</p>
+				<span><a href="#">查看更多</a></span>
+			</div>
+			<!--权威师资-->
+			<div class="teacher">
+				<h3>权威师资</h3>
+				<p>Authoritative teachers</p>
+				<span><a href="#">查看更多</a></span>
+			</div>
+			<!--热招课程-->
+			<div class="hot_ke">
+				<div class="hot_top">
+					<h3>热招课程</h3>
+					<p>Excellent course</p>
+				</div>
+				<div class="hot_content">
+					<ul>
+						<li>
+							<div class="date">
+								<p>12</p>
+								<p>2017-1</p>
+							</div>
+								<p class="right">中国书画艺术名家专项课题高级课程研修班（第十一期）</p>
+						</li>
+						<li>
+							<div class="date">
+								<p>19</p>
+								<p>2017-1</p>
+							</div>
+								<p class="right">中国书画艺术名家专项课题高级课程研修班（第十一期）</p>
+						</li>
+						<li>
+							<div class="date">
+								<p>14</p>
+								<p>2017-1</p>
+							</div>
+								<p class="right">中国书画艺术名家专项课题高级课程研修班（第十一期）</p>
+						</li>
+						<li>
+							<div class="date">
+								<p>22</p>
+								<p>2017-1</p>
+							</div>
+								<p class="right">中国书画艺术名家专项课题高级课程研修班（第十一期）</p>
+						</li>
+						<li>
+							<div class="date">
+								<p>9</p>
+								<p>2017-1</p>
+							</div>
+								<p class="right">中国书画艺术名家专项课题高级课程研修班（第十一期）</p>
+						</li>
+						<li>
+							<div class="date">
+								<p>18</p>
+								<p>2017-1</p>
+							</div>
+								<p class="right">中国书画艺术名家专项课题高级课程研修班（第十一期）</p>
+						</li>
+						<li>
+							<div class="date">
+								<p>10</p>
+								<p>2017-1</p>
+							</div>
+								<p class="right">中国书画艺术名家专项课题高级课程研修班（第十一期）</p>
+						</li>
+						<li>
+							<div class="date">
+								<p>3</p>
+								<p>2017-1</p>
+							</div>
+								<p class="right">中国书画艺术名家专项课题高级课程研修班（第十一期）</p>
+						</li>
+					</ul>
+				</div>
+					<span class="more">更多课程</span>
+			</div>			
+			<!--咨询活动-->
+			<div class="active">
+				<h3>精品课程</h3>
+				<p>Excellent course</p>
+				<span><a href="#">查看更多</a></span>
+			</div>
+			<!--底部-->
+			<div class="footer">
+				<div class="top">
+					<img src="img/bottom_logo.png">
+				</div>
+				<div class="bottom">
+					<p> Copyright@.All Right Reserved </p>
+					<p><img src="img/bottom_jt.png" alt="" /></p>
+				</div>
+			</div>
+			
+		</div>
+	</body>
+	<script src="js/jquery-1.8.3.min.js"></script>
+	<script src="js/index.js"></script>
+</html>

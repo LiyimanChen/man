@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>精品课程</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no"/>
+	<link rel="stylesheet" href="css/course.css">
+	<link rel="stylesheet" href="css/swiper-4.3.3.min.css">
+	<script src="js/jquery-1.8.3.min.js"></script>
+	<script src="js/swiper-4.3.3.min.js"></script>
+</head>
+<body>
+	<div class="box">
+	<!--头部-->
+			<div class="top">
+				<div class="left">
+					<span><img src="img/1.png"></span>
+					<span>咨询电话：010—62797221</span>
+				</div>
+				<div class="right">
+					<span></span>
+					<span></span>
+				</div>
+			</div>
+	<!-- 下拉 -->
+	<div class="xiala">
+		<div class="xiala_box">
+			<div class="logo">
+				<img src="img/logo.png" alt="">
+			</div>
+			<div id="btn">
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+			<ul class="list" style="z-index: 5;">
+				<li><a href="index.html">首页</a></li>
+				<li><a href="#none">关于我们</a></li>
+				<li><a href="#none">咨询活动</a></li>
+				<li><a href="#none">权威师资</a></li>
+				<li><a href="#none">精品课程</a></li>
+				<li><a href="#none">招生简介</a></li>
+				<li><a href="#none">清华同盟会</a></li>
+				<li><a href="signup.html">在线报名</a></li>
+			</ul>
+		</div>
+	</div>
+	<script>
+		function Nav(){
+	
+		}
+		Nav.prototype = {
+			constructor : Nav,
+			init:function(){
+				this.clickFn();
+			},
+			clickFn:function(){
+				var lock = true;
+				$("#btn").on("click",function(){
+					if(lock){
+						$(".list").slideDown(600);
+						lock = false;
+					}else{
+						$(".list").slideUp(600);
+						lock = true;
+					}
+				})
+			}
+		}
+		var nav = new Nav();
+		nav.init();
+	</script>
+	
+	<!-- 轮播图 -->
+	<div class="swiper-container">
+    	<div class="swiper-wrapper">
+      		<div class="swiper-slide"><img src="img/1.jpg"></div>
+	      	<div class="swiper-slide"><img src="img/2.jpg"></div>
+    	</div>
+    	<!-- Add Pagination -->
+    	<div class="swiper-pagination"></div>
+  	</div>
+  		<script>
+			var swiper = new Swiper('.swiper-container', {
+	  			spaceBetween: 30,
+	      		centeredSlides: true,
+	      		autoplay: {
+	        		delay: 2500,
+	        		disableOnInteraction: false,
+	      		},
+	      		pagination: {
+	        		el: '.swiper-pagination',
+	        		clickable: true,
+	      		}
+		    });
+	</script>
+	
+	<!-- 首页 -->
+	<div class="shouye">
+		<div class="classroom">
+			<p class="sy">首页></p>
+			<p class="jp">精品课堂</p>
+		</div>
+	</div>
+
+	<!-- 热招课堂-->
+	<div class="hotroom">
+		<div class="classroom">
+			<h3>
+				<span>热招课程</span>
+				<span>Business course</span>
+			</h3>
+			<div class="imgs">
+				<img src="img/2.png" alt="">
+			</div>
+			<div class="title">
+		
+			</div>
+		</div>
+	</div>
+	<script type="text/template" id="template">
+		<div class="rzkt">
+			<div class="data">
+				<p>@mon@</p>
+				<p>@year@</p>
+			</div>
+			<p class="data_text">@title@</p>
+		</div>
+	</script>
+	<script>
+		window.onload = function(){
+			var templateString = $("#template").html();
+			getJsonFn();
+			function getJsonFn(){
+				$.get("txt.json",function(data){
+					data = typeof data == "object" ? data:eval("("+data+")");
+					var dataArry = data.data;
+					for (var i = 0; i < dataArry.length; i++) {
+						var DomString = chuliFn(templateString,dataArry[i]);
+						$(".title").append(DomString);
+					}
+				});
+			}
+
+			function chuliFn(templateString,data){
+				return templateString.replace(/\@([a-z\w]+)\@/g,function(match,$1,index,string){
+					return data[$1];
+				});
+			}
+		}
+	</script>
+	
+
+	<div class="hotroom">
+		<div class="classroom">
+			<h3>
+				<span>全部课堂</span>
+				<span>All course</span>
+			</h3>
+			<div class="imgs">
+				<img src="img/2.png" alt="">
+			</div>
+			<div class="title">
+				<!-- <div class="rzkt">
+					<div class="data">
+						<p>12</p>
+						<p>2017-1</p>
+					</div>
+					<p class="data_text">中国书画艺术名家专项课题高级课程研修班（第十一期）</p>
+				</div>
+				<div class="rzkt">
+					<div class="data">
+						<p>12</p>
+						<p>2017-1</p>
+					</div>
+					<p class="data_text">中国书画艺术名家专项课题高级课程研修班（第十一期）</p>
+				</div>
+				<div class="rzkt">
+					<div class="data">
+						<p>12</p>
+						<p>2017-1</p>
+					</div>
+					<p class="data_text">中国书画艺术名家专项课题高级课程研修班（第十一期）</p>
+				</div>
+				<div class="rzkt">
+					<div class="data">
+						<p>12</p>
+						<p>2017-1</p>
+					</div>
+					<p class="data_text">中国书画艺术名家专项课题高级课程研修班（第十一期）</p>
+				</div> -->
+			</div>
+		</div>
+	</div>
+	<!-- 底部 -->
+	<div class="footer">
+		<div class="footer_box">
+			<div class="imgs">
+				<img src="img/bottom_logo.png" alt="">
+			</div>
+			<div class="english">
+				<p> Copyright@.All Right Reserved </p>
+				<img src="img/bottom_jt.png" alt="">
+			</div>
+		</div>
+	</div>
+	</div>
+</body>
+</html>
