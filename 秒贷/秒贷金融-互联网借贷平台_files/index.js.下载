@@ -1,0 +1,514 @@
+/*banner请求*/
+var bannersVue=new Vue({
+  		el: '#banners',
+  		data:{
+  			banners:[]
+  		}});
+
+	$.ajaxm({
+	    type:"POST", 
+	    url:"miaodai.banners.get", 
+	    data:{"clientType":"1"},
+	    dataType:"json",
+	    success:function(data){
+	    	bannersVue.banners=data.banners;
+	    	var time=setTimeout(function(){
+	    		var banners=$("#banners ul li").length;
+	    		 if(banners==data.banners.length){
+	    			 $(".mdw-carousel").ZtPictureDisplay();
+	    			  clearInterval(time)
+	    		 }
+	    	},200)
+	    }
+	});
+
+/*banner请求*/
+
+
+/*获取网站实时数据*/
+	var factualData = new Vue({
+		el: '#factualData',
+  		data:{
+  			factualDataMsg:{},
+  			}
+	});
+	$.ajaxm({
+	    type:"POST", 
+	    url:"platform.realtimedata.get", 
+	    data:{},
+	    dataType:"json",
+	    success:function(data){
+	    	 factualData.factualDataMsg=data;
+             setTimeout(function(){
+             	 $(".autoAdd").each(function(){
+             	 	   Md_Counter(this,$(this).text());
+             	 })
+             })
+	    }
+	});
+
+/*获取网站实时数据*/
+
+
+
+/*可用余额*/
+
+
+
+/*可用余额*/
+
+
+/*秒贷公告*/
+ var notice=new Vue({
+ 	 el:"#notice",
+ 	 data:{noticeList:[]}
+ })
+
+  $.ajaxm({
+ 	 type:"POST",
+ 	 url:"miaodai.newsinfos.get",
+ 	 data:{"equipment":"web","page_size":"6","page_no":"1","belong_module":"MDGG"},
+	 dataType:"json",
+	 success:function(data){
+	 	  notice.noticeList=data.commonNewsInfos.list;
+	 }
+
+ })
+/*秒贷公告*/
+
+/*咨询动态*/
+ var consultingDynamics=new Vue({
+ 	  el:"#consultingDynamics",
+ 	  data:{consultingList:[]}
+ })
+
+ $.ajaxm({
+ 	 type:"POST",
+ 	 url:"miaodai.newsinfos.get",
+ 	 data:{"equipment":"web","page_size":"6","page_no":"1","belong_module":"ZXDT"},
+	 dataType:"json",
+	 success:function(data){
+	 	 consultingDynamics.consultingList=data.commonNewsInfos.list;
+	 }
+
+ })
+/*咨询动态*/
+
+/*投资排行榜*/
+var vue_rankingList =  new Vue({
+      el: '#mdw-tip-group',
+      data:{
+        items:[],
+        planBut:true
+      }
+    })    
+
+ $(".mdw-ranking").one('click',function() {
+	$.ajaxm({
+	    type:"POST", 
+	    url:"invest.ranking.get", 
+	    data:{"equipment":"web","page_size":"10","page_no":"1"},
+	    dataType:"json",
+	    success:function(data){
+             vue_rankingList.items = data.page.list;
+	     }
+	});
+     
+   });
+
+/*投资排行榜*/
+
+
+/*标的信息*/
+function Md_rotate(obj,movingArray,frequency){
+	  clearInterval(timer);
+	  frequency=(100-frequency) || 1;
+	  var speed=movingArray.length-frequency;
+	  var count=0;
+	  var timer=null;
+	  timer=setInterval(function(){
+	      if(count==movingArray.length-frequency){
+	          clearInterval(timer);
+	      }else{
+		      count++;
+		      obj.css({left:movingArray[count].left,top:movingArray[count].top});  
+	      }
+    },500/speed-2)
+}
+
+
+ var speedArray=[{speed:0,left:82,top:-16},{speed:1,left:89,top:-16},{speed:2,left:95,top:-16},{speed:3,left:100,top:-14},{speed:4,left:106,top:-13},{speed:5,left:112,top:-11},{speed:6,left:117,top:-9},{speed:7,left:126,top:-7},{speed:8,left:132,top:-5},{speed:9,left:137,top:1},{speed:10,left:143,top:3},{speed:11,left:146,top:6},{speed:12,left:151,top:12},{speed:13,left:157,top:15},{speed:14,left:160,top:18},{speed:15,left:166,top:26},{speed:16,left:168,top:32},{speed:17,left:171,top:37},{speed:18,left:174,top:43},{speed:19,left:177,top:49},{speed:20,left:180,top:54},{speed:21,left:180,top:63},{speed:22,left:181,top:69},{speed:23,left:181,top:74},{speed:24,left:181,top:78},{speed:25,left:178,top:87},{speed:26,left:178,top:93},{speed:27,left:178,top:100},{speed:28,left:175,top:107},{speed:29,left:172,top:114},{speed:30,left:170,top:117},{speed:31,left:168,top:124},{speed:32,left:166,top:129},{speed:33,left:162,top:135},{speed:34,left:158,top:142},{speed:35,left:157,top:148},{speed:36,left:155,top:157},{speed:37,left:148,top:158},{speed:38,left:145,top:164},{speed:39,left:140,top:168},{speed:40,left:135,top:171},{speed:41,left:129,top:173},{speed:42,left:122,top:173},{speed:43,left:122,top:173},{speed:44,left:120,top:173},{speed:45,left:115,top:175},{speed:46,left:109,top:175},{speed:47,left:100,top:175},{speed:48,left:95,top:175},{speed:49,left:89,top:175},{speed:50,left:82,top:175},{speed:51,left:75,top:175},{speed:52,left:69,top:175},{speed:53,left:62,top:173},{speed:54,left:55,top:173},{speed:55,left:49,top:173},{speed:56,left:44,top:171},{speed:57,left:38,top:171},{speed:58,left:32,top:164},{speed:59,left:27,top:162},{speed:60,left:21,top:156},{speed:61,left:15,top:154},{speed:62,left:10,top:148},{speed:63,left:7,top:144},{speed:64,left:3,top:140},{speed:65,left:-2,top:134},{speed:66,left:-3,top:130},{speed:67,left:-6,top:126},{speed:68,left:-8,top:118},{speed:69,left:-8,top:118},{speed:70,left:-8,top:114},{speed:71,left:-8,top:111},{speed:72,left:-8,top:105},{speed:73,left:-8,top:100},{speed:74,left:-8,top:100},{speed:75,left:-8,top:100},{speed:76,left:-14,top:80},{speed:77,left:-12,top:74},{speed:78,left:-12,top:69},{speed:79,left:-14,top:63},{speed:80,left:-14,top:54},{speed:81,left:-14,top:49},{speed:82,left:-12,top:43},{speed:83,left:-10,top:37},{speed:84,left:-6,top:32},{speed:85,left:-2,top:26},{speed:86,left:3,top:20},{speed:87,left:7,top:15},{speed:88,left:13,top:9},{speed:89,left:15,top:6},{speed:90,left:21,top:3},{speed:91,left:27,top:1},{speed:92,left:32,top:-2},{speed:93,left:38,top:-5},{speed:94,left:44,top:-8},{speed:95,left:49,top:-11},{speed:96,left:55,top:-14},{speed:97,left:64,top:-15},{speed:98,left:69,top:-16},{speed:99,left:75,top:-16},{speed:100,left:82,top:-16}]
+
+
+
+
+ var mdwLoan=new Vue({
+ 	  el:"#mdwLoan",
+ 	  data:{
+ 	  	 experienceLoan:{},
+	  	 loans:{},
+	  	 loanTranfers:{} 
+ 	  }
+ })
+
+ $.ajaxm({
+	    type:"POST", 
+	    url:"miaodai.indexPageLoans.search", 
+	    data:{"equipment":"web"},
+	    dataType:"json",
+	    success:function(data){
+	    	 /*体验标*/
+	    	 mdwLoan.experienceLoan=data.loan;
+	    	 if(mdwLoan.experienceLoan.addRate==0){
+	    	 	   $(".experienceLoanRoot").text(mdwLoan.experienceLoan.baseRate)
+	    	 }else{
+	    	 	 $(".experienceLoanRoot").text(mdwLoan.experienceLoan.baseRate+"+"+mdwLoan.experienceLoan.addRate) 
+	    	 }
+	    	 /*标的列表*/
+             mdwLoan.loans=data.loans;
+            var time=setInterval(function(){
+                var incomeLendPross=$(".circleCat");
+			    if(incomeLendPross.length===mdwLoan.loans.length){
+                   incomeLendPross.each(function(i,obj){
+                   	 /*圆形进度条*/
+                       $(this).circleProgress({
+                            value:$(this).data('prog')/100>1?1:$(this).data('prog')/100,
+                            size:206,
+                            emptyFill:"#eaeaea",
+                            thickness:10,
+                            startAngle:4.71,
+                            fill:{ gradient: ["#5ef1d4","#4793fa"] }
+
+                        })
+                       /*圆形进度条*/
+                       /*跟随圆运动*/
+                       Md_rotate($(".speedCircular").eq(i),speedArray,parseInt($(this).data('prog')>100?100:$(this).data('prog')));
+                       /*跟随圆运动*/
+                      /*倒计时事件*/
+                      if($(this).data("time") != "undefined" && $(this).data("time") != undefined && $(this).data("time") != null){
+                      	    var circleCatP=$(".circleCatP");
+						    countZero(circleCatP.eq(i).attr("id"),$(this).data("open"),1)
+						    
+					  }
+					  /*倒计时事件*/
+                   })
+				    clearInterval(time)
+			    }
+              
+              /*判断体验标事件*/
+			 if($(".tiyanbiaoCv").data("topen") != "undefined" && $(".tiyanbiaoCv").data("topen")!=undefined && $(".tiyanbiaoCv").data("topen")!=null){
+					 countZero(data.loan.id,$(".tiyanbiaoCv").data("topen"),2);
+			  }
+			
+		},300)
+            
+        
+	    }
+	});
+
+/*倒计时函数*/
+ function countZero(id,opentime,style) {
+		var time;
+		var dade = new Date();
+		var nowtime = dade.getTime() / 1000;
+		var str = opentime.replace(/-/g, "/");
+		var opentimelong = (new Date(str).getTime()) / 1000;
+		var futuretime = opentimelong - nowtime;
+		var zero = parseInt(futuretime);
+		time = setInterval(
+				function() {
+					var day = 0;
+					var hour = 0;
+					var min = 0;
+					var second = 0;
+					day = Math.floor(zero / (24 * 60 * 60));
+					hour = Math.floor(zero / (60 * 60)) - (day * 24);
+					min = Math.floor(zero / (60)) - (day * 24 * 60)
+							- (hour * 60);
+					second = Math.floor(zero) - (day * 24 * 60 * 60)
+							- (hour * 60 * 60) - (min * 60);
+					if (min <= 9) {
+						min = "0" + min
+					}
+					if (second <= 9) {
+						second = "0" + second
+					}
+					zero--;
+					/*正常标的判断*/
+					if (zero < 0 && style == 1) {
+                        $("#"+id+" a").attr("href","project/projectDetails.html?id="+id+"");
+                        $("#"+id+" a").attr("target","_blank");
+                        $("#"+id+" button").text('立即投资');
+						clearInterval(time)
+						return false
+					}else if(zero < 0 && style == 2){//体验标的
+						 console.log(0)
+						$("#"+id).attr("href","project/projectDetails.html?id="+id+"");
+						$("#"+id).attr("target","_blank");
+						$("#"+id+' button').text('立即投资');
+						clearInterval(time)
+						return false
+					}
+				}, 1000)
+	}
+
+/*倒计时函数*/
+
+/*标的信息*/
+
+
+/*页面点击事件*/
+
+$(".mdw-ranking").click(function() {
+    $(".rankingList").css({right:65});
+});
+
+$(".rankingDoubleArrow").click(function(){
+    $(".rankingList").css({right:-430})
+})
+
+$(".mdw-backHome").Ztreturn();
+$(window).scroll(function(){
+          var top=$(this).scrollTop();
+              if(top>0){
+                $(".fallBack li").last().show()
+              }else{
+                 $(".fallBack li").last().hide()
+              }
+      })
+$(".mdw-secondary-link ul li a").removeClass("active");
+$(".indexPage").addClass("active");
+
+
+
+
+	 if($.cookie("_mu")!=undefined&&$.cookie("_mu")!=null&&$.cookie("_mu")!=""){
+		 var user = JSON.parse( $.cookie("_mu")); 
+		 if(user!=null){
+		 	var user_id = user.id;
+		 	$(".bannersTitleCont1").hide();
+            $(".bannersTitleCont2").show();
+            /*风险测评*/
+ /*          $.ajaxm({
+    type:"POST", 
+    url:"miaodai.get.riskDegree", 
+    data:{"userId":user_id},
+    dataType:"json",
+    success:function(data){
+    	var getAssessment=data.data;
+            if(user_id!=''){
+                if(getAssessment==null){
+            	    if($.cookie("evaluation")==undefined){
+                       $(".riskAssessmentPop").Ztpopup();
+            	    }
+            	}	
+            }
+    }
+});*/
+ /*风险测评*/
+
+/*判断开通账户没有*/
+
+   $.ajaxm({
+    type:"POST", 
+    url:"miaodai.user.forward", 
+    data:{"user_id":user_id,equipment:"web"},
+    dataType:"json",
+    success:function(data){
+    	var errorCode=data.errorCode;
+    	 if(errorCode=="1012"){
+    	 	 if($.cookie("openIn")==undefined){
+               $(".openAccountPop").Ztpopup();
+            }  
+    	 }
+    }
+});
+
+/*判断开通账户没有*/
+
+ /*可用余额*/
+   $.ajaxm({
+       type:"POST", 
+       url:"miaodai.hushang.balance", 
+       data:{"userId":user_id},
+       dataType:"json",
+       success:function(data){
+          //$(".keyongyue").text(data.data.usableAmount);
+          $(".eyes").on("click",function(){
+        	  if($('.keyongyue').text()=="****"){
+        	  	 $(this).css("backgroundPosition","0 0");
+        	  	 $('.keyongyue').text(data.data.usableAmount);
+        	  }else{
+        	  	  $(this).css("backgroundPosition","0 -26px");
+        	  	  $('.keyongyue').text("****");
+        	  }
+        	 	  
+        })
+          //赋值
+      }
+    });
+
+  /*可用余额*/
+
+
+		 }
+   
+	  }
+ $(".riskAssessmentPopRemove").on("click",function(){
+		   $(".riskAssessmentPop").hide();
+	       $(".mdw-popup-mark").remove();
+		  $.cookie("evaluation","fast");
+	})
+
+$(".openAccountPopRemove").on("click",function(){
+	   $(".openAccountPop").hide();
+	   $(".mdw-popup-mark").remove();
+	   $.cookie("openIn","fast");
+});
+
+
+$(".opInG").click(function(){
+	 $.cookie("openIn","fast");   
+})
+
+ $(".evaluation").click(function(){
+ 	   $.cookie("evaluation","fast");
+ })
+
+			   function goToRecharge(){
+	
+			   	   //    newWindow = window.open();
+		    		   //查看用户有没有实名认证
+//					  	$.ajaxm({
+//						    type:"POST", 
+//						    url:"miaodai.user.isAuth", 
+//						    data:{"user_id":user_id},
+//						    dataType:"json",
+//						    success:function(data){
+//						    	userIsAuthResponse(data);
+//						    }
+//						  });
+	 
+	 
+	  	$.ajaxm({
+		    type:"POST", 
+		    url:"miaodai.user.forward", 
+		    data:{"user_id":user_id,"equipment":"web"},
+		    dataType:"json",
+		    success:function(data){
+		  //  	alert(JSON.stringify(data));
+		    	 if("1012"==data.errorCode){
+		    	 	 $(".openAccountPop").Ztpopup();
+			    		/*msgErrorNew({
+		    				title:"温馨提示",
+		    				cont:"<p style='text-align:center'>您还未激活银行存管账户！</p>",
+		    				butText:"开通账户",butTextCallBack:function(){
+		    					  var _targetPage = globalObj.checkUserinfoPage(_mw.custodyOfFunds);
+					        		window.location.href = _mw.baseURI + _targetPage;
+		    				}
+		    			})*/
+		    		}
+		    	 
+		    	 else if("1058"==data.errorCode){ 
+//		        		window.open(_mw.baseURI + _targetPage);
+	    			  msgErrorNew({"title":"温馨提示",cont:"您未设置徽商银行交易密码！","butText":"去设置",butTextCallBack:function(){
+		    				var _targetPage = globalObj.checkUserinfoPage(_mw.autoSetPassword);
+		    	  		    window.open(_mw.baseURI + _targetPage); 
+		    	  		  setTimeout(function() {
+		    	  		  globalObj.removePopup();
+		    	  		  }, 300);
+	    			  }});
+			    	 }
+		    	 else if("1062"==data.errorCode){//未绑定银行卡跳转到绑定银行卡界面
+		    		  msgErrorNew({"title":"温馨提示",cont:"您还未绑定银行卡!",'butText':"去设置",butTextCallBack:function(){
+		    		  	    var _targetPage = globalObj.checkUserinfoPage(_mw.bindingBackCard);
+			        		window.open(_mw.baseURI + _targetPage);
+			        		setTimeout(function() {
+	    		 		     globalObj.removePopup();
+		        	      }, 300);      
+		    		  }});
+	    		 	  
+		    		}
+		    	 else{
+		    	   //   newWindow = window.open();
+		    		   //查看用户有没有实名认证
+					  	$.ajaxm({
+						    type:"POST", 
+						    url:"miaodai.user.isAuth", 
+						    data:{"user_id":user_id},
+						    dataType:"json",
+						    success:function(data){
+						    	userIsAuthResponse(data);
+						    }
+						  });
+		    	 }
+		    	 
+		    }
+		  });
+	 
+				 }
+ function userIsAuthResponse(_data){
+  	if(_data.success ){
+  			$.ajaxm({
+ 			    type:"POST", 
+ 			    url:"miaodai.deposit.checkRechange", 
+ 			    data:{"user_id":user_id},
+ 			    dataType:"json",
+ 			    success:function(data){
+ 			    	  setTimeout(function() {
+ 		        		  var _targetPage = globalObj.checkUserinfoPage(_mw.cardRecharge);
+ 		        		   window.location.href = _mw.baseURI + _targetPage;
+ 		        	  },100);
+ 			    }
+ 			});
+  	}else{
+  		//此处为以前老用户迁过来数据
+  		 if(_data.identity!=undefined&&_data.identity!=null&&_data.identity!=""){
+  			
+  			var _targetPage = globalObj.checkUserinfoPage(_mw.registedPayment);
+  		    newWindow.location.href = _mw.baseURI + _targetPage;
+  			rechargeIng({title:"充值中",cont:"<h1>请在新打开页面开通存款账户,并充值</h1><p>充值操作完结前不要关闭此窗口</p>",confirmFunction:function(){
+  				 window.location.reload();
+  			},msgRemoveFunction:function(){
+    	 			window.location.reload();
+    	 		}})
+	    		return ;
+  		 }else{
+  			var _targetPage = globalObj.checkUserinfoPage(_mw.custodyOfFunds);
+         	  msgErrorNew({"title":"通知",cont:"还未进行实名认证"});
+        	  setTimeout(function() {
+        		  var _targetPage = globalObj.checkUserinfoPage(_mw.custodyOfFunds);
+        		   window.location.href = _mw.baseURI + _targetPage;
+        	  }, 1800);
+  			
+  		
+  		 }
+  	}
+  } 
+	function goJiaoyiima(){
+		$.ajaxm({
+	        type:"POST", 
+	        url:"miaodai.user.setpassword", 
+	        data:{"user_id":user_id,"equipment":"web"},
+	        dataType:"json",
+	        error:function(){
+	      	  console.log('系统异常');
+	      	  },
+	        success:function(data){
+	      	 // alert(JSON.stringify(data.data));
+	      	 // alert(data.data.partner);
+	         $("#version").val(data.data.version);
+	 		   $("#service").val(data.data.service);
+	 		   $("#partner").val(data.data.partner);
+	 		   $("#sign").val(data.data.sign);
+	 		   $("#signType").val(data.data.signType);
+	 		   $("#reqData").val(data.data.reqData);
+	 		
+	 		   $("#setPasswordForm").attr("action", data.data.action);
+	 		   $("#setPasswordForm").submit();
+	      	  
+	      	  
+	        }
+	  });
+	}
+/*页面点击事件*/

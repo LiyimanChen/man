@@ -1,0 +1,56 @@
+ //js map zhangguangguang 2013-10-24
+function Map() {
+ var struct = function(name, value) {
+  this.name = name;
+  this.value = value;
+ }
+ 
+ var put = function(name, value){
+  for (var i = 0; i < this.arr.length; i++) {
+   if ( this.arr[i].name === name ) {
+    this.arr[i].value = value;
+    return;
+   }
+  }
+   this.arr[this.arr.length] = new struct(name, value);
+ /**
+  * 仅做排序验签使用
+  */
+   this.arrkeys.push(name);
+ }
+ 
+ var get = function(name) {
+  for (var i = 0; i < this.arr.length; i++) {
+   if ( this.arr[i].name === name ) {
+     return this.arr[i].value;
+   }
+  }
+  return null;
+ }
+ 
+ var remove = function(name) {
+  var v;
+  for (var i = 0; i < this.arr.length; i++) {
+   v = this.arr.pop();
+   if ( v.name === name ) {
+    continue;
+   }
+   this.arr.unshift(v);
+  }
+ }
+ 
+ var size = function() {
+  return this.arr.length;
+ }
+ 
+ var isEmpty = function() {
+  return this.arr.length <= 0;
+ } 
+ this.arr = new Array();
+ this.arrkeys = new Array();
+ this.get = get;
+ this.put = put;
+ this.remove = remove;
+ this.size = size;
+ this.isEmpty = isEmpty;
+}

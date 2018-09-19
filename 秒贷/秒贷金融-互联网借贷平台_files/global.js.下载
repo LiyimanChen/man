@@ -1,0 +1,982 @@
+  var _mw = {};
+  //获取当前网址，如： http://localhost:8010/webV2.0/access/index  
+  _mw.curWwwPath=window.document.location.href;  
+  //获取主机地址之后的目录，如： access/index    
+  _mw.pathName=window.document.location.pathname;  
+  _mw.pos=_mw.curWwwPath.indexOf(_mw.pathName);  
+  //获取主机地址，如： http://localhost:8010  
+  _mw.localhostPath=_mw.curWwwPath.substring(0,_mw.pos);  
+    //获取带"/"的项目名，如：/TestDhtmlx 
+  _mw.projectName=_mw.pathName.substring(0,_mw.pathName.substr(1).indexOf('/')+1);
+  if(_mw.localhostPath.indexOf("localhost")>0){
+	  _mw.baseURI = _mw.localhostPath+_mw.projectName; 
+  }else{
+	  _mw.baseURI = _mw.localhostPath;
+  }
+//  _mw.baseURI='';
+  /*取手机号*/
+   var secureMobile=0;
+
+      if($.cookie("_mu")!=undefined&&$.cookie("_mu")!=null&&$.cookie("_mu")!=""){
+            //cookie 不存在跳转到登录页面
+       var user = JSON.parse( $.cookie("_mu")); 
+          if(user==null){
+              secureMobile=0;
+          }else{
+            secureMobile = user.secureMobile;
+          }
+          
+      }
+/*取手机号*/
+  
+
+  _mw.gotoJump="/index.html";
+  _mw.about="/about.html";
+  _mw.informationDisclosure="/informationDisclosure.html";
+  _mw.riskEducation="/riskEucation.html";
+  _mw.borrow="/wantMoney.html";
+  _mw.noviceGuide="/bannerActivity/2017noviceGuide.html";//新手指南
+  _mw.userHelp="/userHelp.html";//帮助中心
+  _mw.contactUs="/contactUs.html";//联系我们
+  _mw.partner="/partner.html";//合作伙伴
+  _mw.myAccount = "/myAccount/anAccount.html";//个人中心
+  _mw.registedPayment = "/huiShang/registedPayment.html"//老用户实名认证页面
+  _mw.payment = "/huiShang/payment.html";//实名认证页面
+  _mw.recharge = "/huiShang/recharge.html";//订单签约，实名认证页面(没有绑定银行卡)
+ // _mw.cardRecharge = "/huiShang/cardRecharge.html";//订单签约(有绑定银行卡)
+  _mw.cardRecharge = "/myAccount/accountRecharge.html";//新版充值 2017年6月14日16:13:42
+  _mw.autoSetPassword = "/autoSetPassword.html";//跳转至徽商银行交易密码临时页面 2017年6月19日22:05:19
+  _mw.custodyOfFundsSuccess2 = "/custodyOfFundsSuccess2.html";
+  _mw.bindingBackCard = "/myAccount/bindingBackCard.html"; //绑卡
+  _mw.custodyOfFunds= "/myAccount/custodyOfFunds.html"; //新版绑卡(实名认证) 2017年6月15日22:09:56
+  _mw.firstRecharge = "/huiShang/firstRecharge.html";//订单签约(首次充值)
+  _mw.pdetails = "/project/projectDetails.html";//产品详情
+  _mw.plist = "/project/projectList.html?point=1";//产品列表
+  _mw.reChargeConfirm = "/huiShang/confirm.html"//确认充值页面
+  _mw.firstConfirm = "/huiShang/firstConfirm.html"//确认充值页面
+  _mw.cardConfirm = "/huiShang/cardConfirm.html"//确认充值页面
+  _mw.reChargeSuccess = "/huiShang/success.html"//充值成功页面
+  _mw.reCharge3081 = "/huiShang/success3081.html"//充值结果3081跳转页
+  _mw.reCharge3083 = "/huiShang/success3083.html"//充值结果3083跳转页
+  _mw.balance = "/myAccount/balance.html"//跳转提现页面
+  _mw.transferDetails = "/project/transferDetails.html";//债权转让详情页
+  _mw.transactionRecord = "/myAccount/transactionRecord.html";//交易记录详情页
+  _mw.creditorRights = "/myAccount/creditorRights.html";//债权转让详情页
+  _mw.accountSet = "/myAccount/accountSet.html";//跳转账户设置
+  _mw.myRed = "/myAccount/myRed.html";//跳转账户红包
+  _mw.userContract = "/contracts/userContract.html";//个人中心债券转让合同
+  _mw.userBottomryContract = "/contracts/userBottomryContract.html";//个人中心借款协议
+  _mw.investmentSuccess = "/project/investmentSuccess.html";//投资成功页
+  _mw.autoBidSuccess = "/myAccount/autoBid.html";//自动投标页
+    /** 登录
+     * mtype 验证码登录
+     * ptype  密码登录
+     */
+  var loginType = "mtype"; 
+  var myreg = /^1[0|1|3|5|7|8]{1}\d{9}$/; 
+    
+    var nameReg = /^[\u4e00-\u9fa5]{2,5}$/;
+    
+    var identityReg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+    
+    var moneyReg = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
+    
+    var bankCardReg = /^\d{16}|\d{19}$/;
+    
+    var verificationReg = /^\d{6}$/;
+
+ /*组件*/ 
+  
+ /*全局header*/
+  Vue.component("global-header",{
+   template:' <header class="mdw-global-header">'+
+              '<div class="centerCont mdw-global-headerNav">'+
+              '<div class="mdw-headerNav-hotline mdw-layout-left">'+
+              '<h6>服务热线: 400-856-9666( 09:00-21:00 )</h6></div>'+
+              '<nav class="mdw-headerNav-link mdw-layout-right"><ul>'+
+              '<li><a href="javascript:;" @click="contactUs">联系我们</a></li>'+
+              '<li><a href="javascript:;" @click="userHelp">帮助中心</a></li>'+
+              '<li><a href="javascript:;" @click="noviceGuide">新手指引</a></li>'+
+              '<li class="client-icon"><span>移动客户端</span> <div class="qrCode2 none"></div> </li>'+
+              '</ul></nav></div></header>',
+    methods: {
+        noviceGuide:function(){
+           window.open(_mw.baseURI+_mw.noviceGuide);
+        },
+        contactUs:function(){
+          sessionStorage.setItem("secondaryKie",_mw.about); 
+           window.open(_mw.baseURI+_mw.contactUs);
+        },
+        userHelp:function(){
+          sessionStorage.setItem("secondaryKie",_mw.about); 
+           window.open(_mw.baseURI+_mw.userHelp);
+        }
+      }
+  })
+  /*全局header*/
+
+  /*全局二级导航*/
+   Vue.component("global-secondary",{
+   template:'<div class="mdw-global-secondary">'+
+            '<div class="centerCont">'+
+            '<div class="mdw-global-logo mdw-layout-left">'+
+            '<a href="javascript:;" class="indexActive" @click="goToIndex"><div class="send-global-logo"></div></a></div>'+
+            '<nav class="mdw-secondary-link mdw-layout-right"><ul>'+
+            '<li><a href="javascript:;" @click="goToIndex" class="active indexPage">首页</a></li>'+
+            '<li><a href="javascript:;" @click="goToProjectList" class="indexProject">我要出借</a></li>'+
+            '<li><a href="javascript:;" @click="goToBorrow" class="indexBorrow">我要借款</a></li>'+
+            '<li><a href="javascript:;" class="indexAbout" @click="goToAbout">关于我们</a></li>'+
+            '<li><a href="javascript:;" class="informationDisclosure"  @click="informationDisclosure">信息披露</a></li>'+
+            '<li><a href="javascript:;" class="riskEducation"  @click="riskEducation">风险教育</a></li>'+
+            '<li class="myaccount none"><span  @click="goToMyAccount"><i></i>'+secureMobile+'</span>  <div class="globalNavList"> <dl><dt><a href="#" class="globalNavListZh" @click="goToMyAccount">账户总览</a></dt></dl> <dl><dt><a href="#" class="globalNavListJy" @click="goToTransactionRecord">交易记录</a></dt></dl>  <dl><dt><a href="#" class="globalNavListHb" @click="goToMyRed"> 我的红包 </a> </dt></dl>  <dl><dt><a href="#" class="globalNavListSz" @click="goToAccountSet"> 账户设置 </a> </dt></dl><dl><dt><a href="javascript:;" class="globalNavListAq" @click="logout"> 安全退出 </a> </dt></dl></div></li>'+
+            '<li class="login_mn"> <button type="button" class="index-register">注册</button> <b>/</b> <button type="button" class="index-signIn">登录</button></li>'+
+            '</ul></nav></div></div>',
+            ready:function(){
+                 var secondaryKie=sessionStorage.getItem("secondaryKie");
+                 if(secondaryKie!=undefined && secondaryKie==_mw.about){
+                      $(".mdw-secondary-link ul li a").removeClass("active");
+                      $(".indexAbout").addClass("active");
+                 }else if(secondaryKie!=undefined && secondaryKie==_mw.gotoJump){
+                      $(".mdw-secondary-link ul li a").removeClass("active");
+                      $(".indexPage").addClass("active")
+                 }else if(secondaryKie!=undefined && secondaryKie==_mw.plist){
+                      $(".mdw-secondary-link ul li a").removeClass("active");
+                      $(".indexProject").addClass("active")
+                 }else if(secondaryKie!=undefined && secondaryKie==_mw.borrow){
+                      $(".mdw-secondary-link ul li a").removeClass("active");
+                      $(".indexBorrow").addClass("active")
+                 }else if(secondaryKie!=undefined && secondaryKie==_mw.informationDisclosure){
+                      $(".mdw-secondary-link ul li a").removeClass("active");
+                      $(".informationDisclosure").addClass("active")
+                 }else if(secondaryKie!=undefined && secondaryKie==_mw.riskEducation){
+                      $(".mdw-secondary-link ul li a").removeClass("active");
+                      $(".riskEducation").addClass("active")
+                 }
+                
+                 $(".mdw-secondary-link ul li a:not(.active)").mouseover(function(){
+                     $(this).addClass("active")
+                 })
+
+                 $(".mdw-secondary-link ul li a:not(.active)").mouseout(function(){
+                     $(this).removeClass("active")
+                 })
+
+                  $(".mdw-secondary-link ul li a:not(.active)").blur(function(){
+                     $(this).removeClass("active")
+                 })
+
+                  $(".myaccount span").mouseover(function(){
+                       $(this).next().show();
+                       $(this).css({color:"#008bff"})
+                       $(this).children().css({"background-position": "0 -47px"})
+                  })
+
+                  $(".mdw-global-secondary").mouseleave(function(){
+                       $(".globalNavList").hide();
+                       $(".myaccount span").css({color:"#000"})
+                       $(".myaccount span i").css({"background-position": "0 0"})
+                  })
+
+            },
+            methods: {
+               logout:function(){
+                 //$.cookie('_mu', JSON.stringify(_data.user), { expires: 7, path: '/' }); 
+                  $.cookie('_mu', null,{ path: '/' }); 
+                  window.location.href = _mw.baseURI + "/index.html";
+                  /**临时**/
+                },
+                goToMyAccount:function(){
+                   var _targetPage = globalObj.checkUserinfoPage(_mw.myAccount);
+                   window.location.href = _mw.baseURI + _targetPage;
+                },
+                goToIndex:function(){
+                  window.location.href =_mw.baseURI+_mw.gotoJump;
+                  sessionStorage.setItem("secondaryKie",_mw.gotoJump);
+                },
+                goToProjectList:function(){
+                  sessionStorage.setItem("secondaryKie",_mw.plist);
+                  window.open(_mw.baseURI+_mw.plist);
+                },
+                goToBorrow:function(){
+                  sessionStorage.setItem("secondaryKie",_mw.borrow);
+                  window.open(_mw.baseURI+_mw.borrow)
+                
+                },
+                goToAbout:function(){
+                   sessionStorage.setItem("secondaryKie",_mw.about);
+                     window.open(_mw.baseURI+_mw.about);
+                },
+                informationDisclosure:function(){
+                   sessionStorage.setItem("secondaryKie",_mw.informationDisclosure);
+                     window.open(_mw.baseURI+_mw.informationDisclosure);
+                },
+                riskEducation:function(){
+                   sessionStorage.setItem("secondaryKie",_mw.riskEducation);
+                     window.open(_mw.baseURI+_mw.riskEducation);
+                },
+                goToAccountSet:function(){
+                    var _targetPage = globalObj.checkUserinfoPage(_mw.accountSet);
+                    window.location.href = _mw.baseURI + _targetPage;
+                },
+                goToTransactionRecord:function(){
+                    var _targetPage = globalObj.checkUserinfoPage(_mw.transactionRecord);
+                    window.location.href = _mw.baseURI + _targetPage;
+                },
+                goToMyRed:function(){
+                    var _targetPage = globalObj.checkUserinfoPage(_mw.myRed);
+                    window.location.href = _mw.baseURI + _targetPage;
+                },
+            }
+  })
+  /*全局二级导航*/
+ 
+
+  /*全局footer*/
+  Vue.component("global-footer",{
+   template:'<footer class="mdw-global-footer"><div class="centerCont">'+
+             '<div class="mdw-footer-same mdw-footer-first"><nav><ul>'+
+             '<li><a href="javascript:;" @click="goToAbout()">关于我们</a></li>'+
+             '<li><a href="javascript:;" @click="goToNoviceGuide()">新手指引</a></li>'+
+             '<li><a href="javascript:;" @click="userHelp()">帮助中心</a></li>'+
+             '<li><a href="javascript:;" @click="goToPartner()">合作伙伴</a></li></ul></nav>'+
+             '<address>北京秒贷网电子商务股份有限公司<br/>版权所有@2015-2017mdjr.com京ICP备15004408</address>'+
+             '<ul class="mdw-footer-sincerity">'+
+             '<li><a href="https://search.szfw.org/cert/l/CX20150312007088007157" target="_blank"><div class="integrity"></div></a></li>'+
+             '<li><a href="http://www.anquan.org/authenticate/cert/?site=www.miaodaiwang.com&at=business" target="_blank"><div class="security"></div></a></li>'+
+             '<li><div class="internet"></div></li>'+
+             '<li><a href="https://trustsealinfo.verisign.com/splash?form_file=fdf/splash.fdf&dn=www.mdjr.com&lang=zh_cn" target="_blank"><div class="norton"></div></a></li></ul></div>'+
+             '<div class="mdw-footer-same mdw-footer-second">'+
+             '<dl><dt class="publicCode"></dt><dd>扫描二维码</dd><dd>关注秒贷金融公众号</dd></dl>'+
+             '<dl><dt class="qrCode"></dt><dd>扫描二维码</dd><dd>下载秒贷金融APP</dd></dl></div>'+  
+             '<div class="mdw-footer-same mdw-footer-third">'+
+             '<div class="mdw-footer-phone"><p>欢迎致电</p><h2>400-856-9666</h2></div>'+
+             '<div class="mdw-footer-workTime"><p>工作时间</p><p>09:00-21:00</p>'+
+             '</div></div></div></footer>',
+             methods:{
+                goToAbout:function(){
+                    sessionStorage.setItem("secondaryKie",_mw.about); 
+                     window.open(_mw.baseURI+_mw.about);
+                },
+                goToNoviceGuide:function(){
+                    window.open(_mw.baseURI+_mw.noviceGuide);
+                },
+                goToPartner:function(){
+                   sessionStorage.setItem("secondaryKie",_mw.about); 
+                    window.open(_mw.baseURI+_mw.partner);
+                },
+                 userHelp:function(){
+                   sessionStorage.setItem("secondaryKie",_mw.about); 
+                   window.open(_mw.baseURI+_mw.userHelp);
+        }
+             }
+  })
+   /*全局footer*/
+
+   /*注册登录*/
+  Vue.component("login",{
+   template:'<div class="mdw-global-login mdw-popup bounceIn animated" id="vue_login">'+
+             '<div class="login-logo"></div><div class="mdw-global-signIn">'+
+             '<div class="mdw-global-form"><div class="form-first">'+
+             '<div class="form-frame"><div class="global-loginSame global-loginLong myPhone">'+
+             '<i></i><input type="text" placeholder="请输入你的手机号" v-model="mobile" name="mobile"> '+
+             '</div></div><div class="form-frame form-frame-short setOne">'+
+             '<div class="global-loginSame global-loginShort write">'+
+             '<i></i><input type="text" placeholder="请输入4位短信验证码" v-model="vcode" name="vcode"> '+
+             '</div><button type="button" class="mdw-button-write shortBut  getLoginVcode" v-on:click="getLoginVcode">获取短信验证码</button>'+
+             '</div><div class="form-frame none setTwo">'+
+             '<div class="global-loginSame global-loginLong passWord">'+
+             '<i></i><input type="password" placeholder="请输入登录密码"  v-model="passwd" name="password"> '+
+             '</div></div><p class="form-p-check none" id="login_tip" >'+
+             '</p><div class="form-frame"><button class="mdw-button-blue opSindv" v-on:click="login">登录</button>'+     
+             '</div></div><div class="form-second none">'+
+             '<div class="form-frame form-frame-short form-frame-button" >'+
+             '<div class="global-loginSame global-loginShort verification ">'+
+             '<i></i><input type="text" placeholder="请输入右侧数字"  v-model="login_imageVcode" name="login_imageVcode">'+ 
+             '</div> <img  class="registerSpan2" src='+ _mw.baseURI+'/images/global/yanLoad.gif>  <img src="" alt="" class="none" id="login_imageVcode" v-on:click="flush_login_imageVcode"></div>'+
+             '<p class="form-p-check none" id="login_image_tip"></p>'+
+             '<div class="form-frame form-frame-button">'+
+             '<button type="button" class="mdw-button-blue form-cancel">取消</button>'+
+             '<button type="button" class="mdw-button-blue form-confirm"   v-on:click="login_image">确认</button>'+
+             '</div></div><p class="form-p-right">密码登录>></p>'+
+             '</div></div><div class="mdw-global-register none" id="vue_register"> '+
+             '<div class="mdw-global-form" ><div class="form-first">'+
+             '<div class="form-frame"><div class="global-loginSame global-loginLong myPhone">'+
+             '<i></i><input type="text" placeholder="请输入你的手机号" v-model="mobile" name="mobile"> '+
+             '</div></div><div class="form-frame form-frame-short">'+
+             '<div class="global-loginSame global-loginShort write">'+
+             '<i></i><input type="text" placeholder="请输入4位短信验证码" v-model="vcode" name="vcode"> '+
+             '</div><button type="button" class="mdw-button-write shortBut  getRegisterVcode"   v-on:click="getRegisterVcode">获取短信验证码</button>'+
+             '</div><div class="form-frame"><div class="global-loginSame global-loginLong friends">'+
+             '<i></i><input type="text" placeholder="请输入邀请人的手机号(可不填)" v-model="friends_mobile" name="friends_mobile"> '+
+             '</div></div><p class="form-p-check none" id="register_tip" >'+
+             '</p><div class="form-frame"><button class="mdw-button-blue setRegisterNew" v-on:click="register">注册</button> '+     
+             '</div></div><div class="form-second none">'+
+             '<div class="form-frame form-frame-short form-frame-button" >'+
+             '<div class="global-loginSame global-loginShort verification ">'+
+             '<i></i><input type="text" placeholder="请输入右侧数字"  v-model="register_imageVcode" name="register_imageVcode"> '+
+             '</div>  <img src='+ _mw.baseURI+'/images/global/yanLoad.gif  alt="" class="registerSpan"> <img src="" alt="" id="register_imageVcode" class="none" v-on:click="flush_register_imageVcode"></div>'+
+             '<p class="form-p-check none" id="register_image_tip"></p>'+
+             '<div class="form-frame form-frame-button">'+
+             '<button type="button" class="mdw-button-blue form-cancel">取消</button>'+
+             '<button type="button" class="mdw-button-blue form-confirm"  v-on:click="register_image">确认</button></div>'+
+             '</div><p class="form-p-agree">同意 <b @click=gotoService()> 《秒贷金融服务协议》</b> 和 <b @click=gotoPrivacy()>《秒贷金融隐私条款》</b> </p>'+
+             '</div></div><span class="login-off"></span></div>',
+      methods:{
+          gotoService:function(){
+            window.open(_mw.baseURI+"/toService.html");
+          },
+          gotoPrivacy:function(){
+            window.open(_mw.baseURI+"/toPrivacy.html");
+          },
+          register: function () {
+                    /**
+                     * 注册按钮事件
+                     */
+                    //检验手机号
+                        if(typeof(this.mobile) == "undefined"||this.mobile.length == 0||this.mobile.length!=11||(!myreg.test(this.mobile))){
+                          $("#register_tip").show();
+                      $("#register_tip").text("请输入正确的手机号码.")
+                      return false;
+                        }
+                    //检验手机短信验证码
+                        if(typeof(this.vcode) == "undefined"||this.vcode.length == 0||this.vcode.length !=4){
+                          $("#register_tip").show();
+                      $("#register_tip").text("请输入4位手机短信验证码.")
+                      return false;
+                        }
+
+                        var _referee_code = "";
+                        if(typeof(this.friends_mobile) == "undefined"||this.friends_mobile.length == 0){
+                            _referee_code="";
+                        }else{
+                          
+                          //检验邀请人手机号
+                          if(this.friends_mobile.length!=11||(!myreg.test(this.friends_mobile))){
+                            $("#register_tip").show();
+                        $("#register_tip").text("请输入正确的邀请人手机号码.")
+                        return false;
+                          } 
+                                  
+                            _referee_code=this.friends_mobile;
+                        }
+                        $("#register_tip").hide();//隐藏
+                       $.ajaxm({
+	                  	    type:"POST", 
+	                  	    url:"miaodai.user.register", 
+	                  	    data:{"mobile":this.mobile,"vcode":this.vcode,"submit_time":new Date().getTime(),"equipment":"web","referee_code":_referee_code},
+	                  	    dataType:"json",
+	                  	    success:function(data){
+	                  	    	_registerCallback(data);
+	                  	    }
+	                  	});
+                    
+                  },
+                getRegisterVcode:function(){
+                /**
+                 * 获取短信验证码事件
+                 */
+                  if(typeof(this.mobile) == "undefined"||this.mobile.length == 0||this.mobile.length!=11||(!myreg.test(this.mobile))){
+
+                    $("#register_tip").show();
+                    $("#register_tip").text("请输入正确的手机号码.")
+                      
+                      return false;
+                    } 
+                  //检测用户是否存在
+                  $.ajaxm({
+	              	    type:"POST", 
+	              	    url:"user.register.check", 
+	              	    data:{"mobile":this.mobile},
+	              	    dataType:"json",
+	              	    success:function(data){
+	              	    	_checkRegisterUserCallback(data);
+	              	    }
+	              	 });
+
+                  },
+                register_image:function(){
+                  if(typeof(this.register_imageVcode)=="undefined"||this.register_imageVcode.length==0||this.register_imageVcode.length!=4){
+                    $("#register_image_tip").show();
+                    $("#register_image_tip").text("请输入右侧4位数字.")
+                    return false;
+                  }
+                  $("#register_image_tip").hide();//隐藏
+                  $.ajaxm({
+					    type:"POST", 
+					    url:"message.register.send", 
+					    data:{"mobile":this.mobile,"image_code":this.register_imageVcode,"equipment":"web"},
+					    dataType:"json",
+					    success:function(data){
+					    	_sendMessageRegisterCallback(data);
+					    }
+					});
+                  
+                  },
+                  login: function () {
+                    /**
+                     * 登录
+                     */
+                    //检验手机号
+                        if(typeof(this.mobile) == "undefined"||this.mobile.length == 0||this.mobile.length!=11||(!myreg.test(this.mobile))){
+                          $("#login_tip").show();
+                      $("#login_tip").text("请输入正确的手机号码.")
+                      return false;
+                        }
+                        
+                      if("mtype" == loginType){
+                        //检验手机短信验证码
+                          if(typeof(this.vcode) == "undefined"||this.vcode.length == 0||this.vcode.length !=4){
+                            $("#login_tip").show();
+                            $("#login_tip").text("请输入4位手机短信验证码.")
+                        return false;
+                          }
+                          $("#login_tip").hide();//隐藏
+                          $.ajaxm({
+                      	    type:"POST", 
+                      	    url:"miaodai.user.login", 
+                      	    data:{"mobile":this.mobile,"vcode":this.vcode,"submit_time":new Date().getTime(),"equipment":"web"},
+                      	    dataType:"json",
+                      	    success:function(data){
+                      	    	_loginCallback(data);
+                      	    }
+                      	  });
+                      }else{
+                        //检验密码
+                        if(typeof(this.passwd) == "undefined"){
+                          $("#login_tip").show();
+                          $("#login_tip").text("请输入登录密码.")
+                      return false;
+                        }
+                          $("#login_tip").hide();//隐藏
+                        $.ajaxm({
+                    	    type:"POST", 
+                    	    url:"miaodai.user.loginpwd", 
+                    	    data:{"mobile":this.mobile,"password":this.passwd,"equipment":"web"},
+                    	    dataType:"json",
+                    	    success:function(data){
+                    	    	_loginpwdCallback(data);
+                    	    }
+                    	});
+  
+                      }
+                        
+      
+                  },
+                getLoginVcode:function(){
+                /**
+                 * 获取短信验证码事件
+                 */
+      
+                  if(typeof(this.mobile) == "undefined"||this.mobile.length == 0||this.mobile.length!=11||(!myreg.test(this.mobile))){
+                      //
+                    $("#login_tip").show();
+                    $("#login_tip").text("请输入正确的手机号码.")
+                      
+                      return false;
+                    }
+                  //检测用户是否存在
+                  $.ajaxm({
+	              	    type:"POST", 
+	              	    url:"user.register.check", 
+	              	    data:{"mobile":this.mobile},
+	              	    dataType:"json",
+	              	    success:function(data){
+	              	    	_checkRegisterUserCallbackTwo(data);
+	              	    }
+	              	 });
+
+                  },
+                login_image:function(){
+                        
+                    if(typeof(this.login_imageVcode)=="undefined"||this.login_imageVcode.length==0||this.login_imageVcode.length!=4){
+                      $("#login_image_tip").show();
+                      $("#login_image_tip").text("请输入右侧4位数字.")
+                      return false;
+                    }
+                    $("#login_image_tip").hide();//隐藏
+                    $.ajaxm({
+                	    type:"POST", 
+                	    url:"message.login.send", 
+                	    data:{"mobile":this.mobile,"image_code":this.login_imageVcode,"equipment":"web"},
+                	    dataType:"json",
+                	    success:function(data){
+                	    	_sendMessageLoginCallback(data);
+                	    }
+                	});
+                    
+                    
+                 },
+                 flush_login_imageVcode:function(){
+                   $("#login_imageVcode").attr("src",_mdw.baseUri+"imageRandeCode?m="+this.mobile+"&t=" +Math.floor(Math.random() * 100));
+                 },
+                 flush_register_imageVcode:function(){
+                   $("#register_imageVcode").attr("src",_mdw.baseUri+"imageRandeCode?m="+this.mobile+"&t=" +Math.floor(Math.random() * 100));
+                 }
+                 
+      }
+  })
+  
+  /*全局返回顶部*/
+/*
+   var vue_rankingList=Vue.component("mdw-tip-group",{
+       props:['items'],
+       template:'<div class="mdw-tip-group"><div class="rankingList">'+
+                '<div class="rankingListLogo"></div><ul class="exam"><li><dl><dt class="champion"></dt><dd>{{items[0]==undefined?"**********":items[0].secureMobile}}</dd>'+
+                '<dd><strong >{{items[0]==undefined?0:items[0].amount | currency "" }}</strong>(元)</dd></dl></li>'+
+                '<li><dl><dt class="runner"></dt><dd>{{items[1]==undefined?"**********":items[1].secureMobile}}</dd><dd><strong >{{items[1]==undefined?0:items[1].amount | currency "" }}</strong>(元)</dd></dl></li>'+
+                '<li><dl><dt class="third"></dt><dd>{{items[2]==undefined?"**********":items[2].secureMobile}}</dd><dd><strong >{{items[2]==undefined?0:items[2].amount | currency "" }}</strong>(元)</dd></dl></li></ul>'+
+                '<ul class="take"><li>排名</li><li class="sort">用户名</li><li>投资金额(元)</li></ul>'+
+                '<ul class="examTable" "><li><div><i class="fourth"></i></div><div>{{items[3]==undefined?"**********":items[3].secureMobile}}</div><div><strong>{{items[3]==undefined?0:items[3].amount | currency "" }}</strong>(元)</div></li>'+
+                '<li><div><i class="fifth"></i></div><div>{{items[4]==undefined?"**********":items[4].secureMobile}}</div><div><strong>{{items[4]==undefined?0:items[4].amount | currency "" }}</strong>(元)</div></li>'+
+                '<li><div><i class="sixth"></i></div><div>{{items[5]==undefined?"**********":items[5].secureMobile}}</div><div><strong>{{items[5]==undefined?0:items[5].amount | currency "" }}</strong>(元)</div></li>'+
+                '<li><div><i class="seventh"></i></div><div>{{items[6]==undefined?"**********":items[6].secureMobile}}</div><div><strong>{{items[6]==undefined?0:items[6].amount | currency "" }}</strong>(元)</div></li><li><div><i class="eighth"></i></div><div>{{items[7]==undefined?"**********":items[7].secureMobile}}</div><div><strong>{{items[7]==undefined?0:items[7].amount | currency "" }}</strong>(元)</div></li>'+
+                '<li><div><i class="ninth"></i></div><div>{{items[8]==undefined?"**********":items[8].secureMobile}}</div><div><strong>{{items[8]==undefined?0:items[8].amount | currency "" }}</strong>(元)</div></li>'+
+                '<li><div><i class="tenth"></i></div><div>{{items[9]==undefined?"**********":items[9].secureMobile}}</div><div><strong>{{items[9]==undefined?0:items[0].amount | currency "" }}</strong>(元)</div></li></ul></div>'+
+                '<ul class="fallBack"><li> <i class="mdw-ranking"></i> 排行榜 </li>'+
+                '<li> <i class="mdw-customer"></i> 联系客服 </li>'+
+                '<li> <i class="mdw-qrCode"></i> <img src="images/global/mdw-qrCode.png" alt="二维码"  class="none" /> 二维码 </li>'+
+                '<li> <i class="mdw-backHome"></i> 回到顶部 </li> </ul> </div>'
+   })
+
+   var vue_rankingList =  new Vue({
+      el: '#mdw-tip-group',
+      data:{
+        items:[],
+        planBut:true
+      }
+    })    
+
+
+  /*全局返回顶部*/
+  
+  /*个人中心的全局头像*/
+  Vue.component("mdw-center-header",{
+   data:function(){
+	   return {
+	    	  isHaveMobile:"",
+	    	  isAuth:"",
+	    	  isHaveBank:""
+	      }
+   },
+   template:'<div class="myAccountUser">'+
+             '<div class="userImg">'+
+             '<img class="mdw-img" src="../images/myAccount/toux.png" alt="用户图片">'+
+			 '</div>'+
+			 '<h1>{{isHaveMobile}}</h1>'+
+			  '</div>',
+               methods:{
+               goToAbout:function(){
+                  window.open(_mw.baseURI+_mw.about);
+                }
+             }
+   })
+   /*个人中心的全局头像*/
+
+
+    /**
+     * 注册的时候检测用户是否注册
+     * @param _data
+     * @returns
+     */                
+    function _checkRegisterUserCallback(_data){
+          if(_data.success&&_data.user!=null){
+             $("#register_tip").show();
+             $("#register_tip").text("手机号已注册,请直接登录");
+             return false;
+          }else{
+             $("#register_tip").hide();//隐藏
+             globalObj.shortBut();
+             $("#register_imageVcode").attr("src",_mdw.baseUri+"imageRandeCode?m="+_data.mobile+"&t=" +Math.floor(Math.random() * 100));
+              $("#register_imageVcode").ready(function(){
+                 $(".registerSpan").hide();
+                 $("#register_imageVcode").removeClass("none")
+             })
+          }
+     }
+    /**
+     * 注册的时候检测用户是否注册
+     * @param _data
+     * @returns
+    */
+    function _checkRegisterUserCallbackTwo(_data){
+      
+      if(!_data.success&&_data.user==null){
+            $("#login_tip").show();
+          $("#login_tip").text("手机号未注册,请注册");
+          return false;
+        }else{
+          $("#login_tip").hide();//隐藏
+          globalObj.shortBut();
+          $("#login_imageVcode").attr("src",_mdw.baseUri+"imageRandeCode?m="+_data.mobile+"&t=" +Math.floor(Math.random() * 100));
+          $("#login_imageVcode").ready(function(){
+                 $(".registerSpan2").hide();
+                 $("#login_imageVcode").removeClass("none")
+             })
+        }
+    }   
+    
+
+ /**
+     * 注册回调
+     * @param _data
+     * @returns
+     */
+    function _registerCallback(_data){
+      /**
+       * 注册异常提示信息
+       */
+      if(!_data.success){
+          $("#register_tip").show();
+        $("#register_tip").text(_data.errorCode+"   : "+_data.msg);
+        return false;
+      }
+
+      $.cookie('_mu', JSON.stringify(_data.user), { expires: 1/24, path: '/' }); 
+      //JSON.parse($.cookie("_mu"));
+      
+      globalObj.removePopup();//成功隐藏弹出窗口
+       window.location.href = _mw.baseURI +  _mw.gotoJump;
+    }
+    
+    /**
+     * 注册短信验证码回掉
+     * @author GuangGuang
+     */
+    function _sendMessageRegisterCallback(_data){
+      if(!_data.success){
+      $("#register_image_tip").show();
+      $("#register_image_tip").text(_data.errorCode+" : "+_data.msg);
+      return false;
+    }
+      globalObj.formConfirm(globalObj.vodeCount('.getRegisterVcode'));
+    }
+    
+    /**
+     * 登录回调
+     * @author GuangGuang
+     */
+    function _loginCallback(_data){
+      /**
+       * 注册异常提示信息
+       */
+      if(!_data.success){
+          $("#login_tip").show();
+        $("#login_tip").text(_data.errorCode+"  : "+_data.msg);
+        return false;
+      }
+
+      $.cookie('_mu', JSON.stringify(_data.user), { expires: 1/24, path: '/' }); 
+      //JSON.parse($.cookie("_mu"));
+      globalObj.removePopup();//成功隐藏弹出窗口
+       window.location.href = _mw.baseURI + "/index.html";
+      
+    }
+    
+    /**
+     * 密码登录回调
+     * @author GuangGuang
+     */
+    function _loginpwdCallback(_data){
+      /**
+       * 注册异常提示信息
+       */
+      if(!_data.success){
+          $("#login_tip").show();
+        $("#login_tip").text(_data.errorCode+"  : "+_data.msg);
+        return false;
+      }
+
+      $.cookie('_mu', JSON.stringify(_data.user), { expires: 1/24, path: '/' }); 
+      //JSON.parse($.cookie("_mu"));
+      globalObj.removePopup();//成功隐藏弹出窗口
+     /*  window.location.href = _mw.baseURI +  _mw.gotoJump;*/
+      window.location.reload();
+
+    }
+  
+    
+    /**
+     * 登录 短信验证码回掉
+     * @author GuangGuang
+     */
+    function _sendMessageLoginCallback(_data){
+      if(!_data.success){
+      $("#login_image_tip").show();
+      $("#login_image_tip").text(_data.errorCode+"  : "+_data.msg);
+      return false;
+    }
+    
+      globalObj.formConfirm(globalObj.vodeCount('.getLoginVcode'));
+    }
+    
+  /*注册登录*/
+
+    
+  /**
+   * 一级导航
+   * @author GuangGuang
+   */
+  var vue_nav1 =  new Vue({
+    el: '#mdw-global-header'
+  })
+
+ /**
+   * 二级导航
+   * @author GuangGuang
+   */
+  var vue_nav2 =  new Vue({
+    el: '#mdw-global-secondary'
+  })
+
+ /*footer*/
+ var globalFooter=new Vue({
+    el:"#mdw-global-footer"
+ })
+
+ /*注册登录*/
+   var vue_login=new Vue({
+       el:"#vue_login"
+   })
+
+  /*注册登录*/
+  /*个人中心账户设置*/
+  var vue_centerHeader=new Vue({
+      el:"#vue_center_header"
+  })
+ /*个人中心账户设置*/
+
+
+function globalFun(){
+    
+       /*导航条*/
+       var navigation=function(){
+           $(this).addClass("active").parent().siblings().children('a').removeClass('active')
+       }
+       /*导航条*/
+
+       /*弹窗隐藏*/
+       var removePopup=function(){ 
+           $(".mdw-popup-mark,.mdw-popup-err").remove();
+           $('.mdw-popup,.msgError').hide();
+       }
+       /*弹窗隐藏*/
+      
+     
+       /** 登录
+        * mtype 验证码登录
+        * ptype  密码登录
+        */
+      var loginSwitch=function(){
+          var text=$(this).text();
+          var second=$(".form-second");
+          var first=$(".form-first")
+            if(text=="密码登录>>"){
+              if(second.is(":visible")){
+                  second.hide();
+                  first.show();
+              }
+              $(".setOne").hide();
+              $(".setTwo").show();
+              $(this).text("验证码登录>>");
+             loginType = "ptype";
+            }else if(text=="验证码登录>>"){
+              $(".setOne").show();
+              $(".setTwo").hide();
+              $(this).text("密码登录>>") 
+               loginType = "mtype";
+            }
+      }
+
+      var shortBut=function(){
+          $(".form-first").hide();
+          $(".form-second ").show()
+      }
+
+      var indexSignIn=function(_gotoJump){
+  
+          var second=$(".form-second");
+          var first=$(".form-first");
+           $(".mdw-global-login").Ztpopup();
+           $(".mdw-global-signIn").show();
+           $(".mdw-global-register").hide();
+           if(second.is(":visible")){
+                    second.hide();
+                    first.show();
+            }
+
+           if(typeof(_gotoJump)=="undefind"||typeof(_gotoJump)==null||typeof(_gotoJump)=="null"||typeof(_gotoJump)==""){
+                _mw.gotoJump = _gotoJump
+              }
+      }
+
+      var indexRegister=function(){
+        var second=$(".form-second");
+        var first=$(".form-first");
+         $(".mdw-global-login").Ztpopup();
+         $(".mdw-global-signIn").hide();
+         $(".mdw-global-register").show();
+         if(second.is(":visible")){
+                  second.hide();
+                  first.show();
+              }
+         
+         if(typeof(_gotoJump)=="undefind"||typeof(_gotoJump)==null||typeof(_gotoJump)=="null"||typeof(_gotoJump)==""){
+            _mw.gotoJump = _gotoJump
+           }
+      }
+
+      var formCancel=function(){
+         var second=$(".form-second");
+         var first=$(".form-first");
+         second.hide();
+         first.show()
+      }
+      
+      
+      var vodeCount=function(obj,second){
+          var second=second || 60;
+          var timeOut=null;
+          clearInterval(timeOut);
+          $(obj).prop("disabled",true);
+          timeOut=setInterval(function(){
+              if(second<=0){
+                 clearInterval(timeOut)
+                 $(obj).prop("disabled",false).text("获取短信验证码");
+              }else{
+               second--;
+                 $(obj).text(second+"S");
+              }   
+          },1000)
+      }
+      
+
+      var formConfirm=function(callBack){
+         var second=$(".form-second");
+         var first=$(".form-first");
+         second.hide();
+         first.show();
+      }
+
+
+      var checkUserinfoPage=function(_targetPage){
+        
+        if(typeof($.cookie("_mu")) =="undefined"||$.cookie("_mu")=="null"){
+          if(_targetPage == "/index.html"){
+            window.location.href = _mw.baseURI + "/index.html";
+          }
+          
+         return "/index.html";
+        }
+        return  _targetPage;
+      }
+
+      /*登录*/
+
+      /*客服*/
+       return {
+        navigation:navigation,
+        removePopup:removePopup,
+        loginSwitch:loginSwitch,
+        shortBut:shortBut,
+        indexSignIn:indexSignIn,
+        indexRegister:indexRegister,
+        formCancel:formCancel,
+        formConfirm:formConfirm,
+        vodeCount:vodeCount,
+        checkUserinfoPage :checkUserinfoPage
+     }
+   
+
+  }
+  var globalObj=globalFun();
+ /*执行函数*/
+  //$(".mdw-secondary-link ul li a").click(globalObj.navigation);
+  $(".form-p-right").click(globalObj.loginSwitch);
+  $(".login-off").click(function(){
+         globalObj.removePopup();
+         $("#login_tip").hide().text("");
+         $("#register_tip").hide().text("");
+  });
+  $(".index-signIn").click(globalObj.indexSignIn);
+  $(".index-register").click(globalObj.indexRegister);
+  $(".form-cancel").click(globalObj.formCancel);
+   $(".mdw-customer").click(function(){
+    easemobim.bind({tenantId: 24563});
+  }) 
+
+  /*执行函数*/
+  $(document).ready(function() {
+
+    var _targetPage = globalObj.checkUserinfoPage("/check");
+  
+    if(_targetPage == "/check"){
+      $(".myaccount").show();
+      $(".login_mn").hide();
+      return false;
+    }else{
+      $(".myaccount").hide();
+      $(".login_mn").show();
+    }
+
+  });
+   
+   $(".myAccountUser ul li i").mouseover(function(){
+	      var next=$(this).next();
+	          next.show()
+	})
+
+	$(".myAccountUser ul li").mouseleave(function(){
+	    $(this).children(".accountTip").hide()
+	})
+
+
+
+/*银行卡号加空格*/
+
+function Md_figureSpace(){
+        var oldVal=$(this).val();
+        var newVal=oldVal.replace(/\s/g,'').replace(/[^\d]/g,'').replace(/(\d{4})(?=\d)/g,'$1 ');
+        $(this).val(newVal);
+    }
+/*银行卡号加空格*/
+
+
+/*数字增加*/
+     function Md_Counter(ele,maxNum,speed){
+        speed=parseInt(maxNum/20) || speed;
+        var timer=null;
+        var maxSet=maxNum.split("."),
+            minNum=0;
+      timer=setInterval(function(){
+           if(minNum<maxSet[0]){
+               minNum+=speed;
+           }
+             if(minNum>maxSet[0]){
+               minNum=maxSet[0];
+               clearInterval(timer);
+           }
+           if(maxSet.length==1){
+             $(ele).text(minNum);
+           }else{
+             $(ele).text(minNum+"."+maxSet[1]);
+           }
+           
+        },1000/60)
+     }
+
+ 
+
+$(window).keyup(function(e){ 
+        var keyCode=e.keyCode;
+      if($(".mdw-global-login").is(":visible")){
+          if(keyCode==13){
+             $(".opSindv").click();
+             $(".setRegisterNew").click();
+             $(".mdw-popup-mark").first().remove();
+          }
+      }
+      
+})
+    
+    
+    
