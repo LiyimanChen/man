@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="680px" height="680px" viewBox="0 0 680 680" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.2 (51160) - http://www.bohemiancoding.com/sketch -->
+    <title>圆的kv</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="12.072193%" y1="1.7501332%" x2="93.3132641%" y2="95.0519464%" id="linearGradient-1">
+            <stop stop-color="#74AFF9" offset="0%"></stop>
+            <stop stop-color="#519DFC" offset="100%"></stop>
+        </linearGradient>
+        <circle id="path-2" cx="340" cy="340" r="340"></circle>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="首页3-copy-9" transform="translate(-620.000000, -200.000000)">
+            <g id="圆的kv" transform="translate(620.000000, 200.000000)">
+                <mask id="mask-3" fill="white">
+                    <use xlink:href="#path-2"></use>
+                </mask>
+                <use id="Mask" fill="url(#linearGradient-1)" xlink:href="#path-2"></use>
+            </g>
+        </g>
+    </g>
+</svg>

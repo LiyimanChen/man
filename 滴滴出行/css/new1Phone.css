@@ -1,0 +1,286 @@
+body{
+background: rgb(248,248,248);
+	perspective: 30000px;
+}
+.t_two{
+	/*width: 100%;*/
+	height: 5vw;
+	margin-top: 2vw;
+	margin-left: 2vw;
+	font-size: 1.2vw;
+	font-family: initial;
+	color: gray;
+	
+}
+.header img{
+	width: 100%;
+}
+.t_three{
+	width: 100%;
+	height: 515vw;
+	/*border: 1px solid red;*/
+}
+.t_three .t_left{
+	/*border: 1px solid red;*/
+    width: 25vw;
+    height: 50vw;
+    margin-left: 3vw;
+    float: left;
+    display: none;
+}
+.t_three .t_left h6{
+	font-size: 1.1vw;
+	font-family: "微软雅黑";
+	line-height: 3vw;
+	margin-left: 5vw;
+}
+.t_three .t_left ul li{
+    width: 100%;
+    line-height: 2.5vw;
+    list-style: square;
+}
+.t_three .t_right{
+    float: left;
+    margin-left: 13vw;
+    /* border: 1px solid red; */
+    width: 77vw;
+    height: 495vw;
+}
+.t_three .t_right h4{
+	    font-size: 1.2vw;
+    font-family: -webkit-pictograph;
+    line-height: 8vw;
+    margin-left: 6vw;
+    margin-top: 4vw;
+}
+.t_three .t_right span{
+	    margin-top: 5vw;
+    margin-left: 6vw;
+    font-size: 1.1vw;
+}
+.t_three .t_right .t_right_img{
+	    margin-left: 6vw;
+    margin-top: 1vw;
+}
+.t_three .t_right .t_right_img img{
+	    width: 3vw;
+    height: 2.3vw;
+}
+.t_three .t_right .t_right_bar{
+    width: 74vw;
+    height: 50vw;
+    margin-bottom: 4vw;
+    box-shadow: 3px 3px 5px 5px grey;
+    transition: all 1s ease 0s;
+}
+.t_three .t_right .t_right_bar:hover{
+	border-radius: 10vw;
+}
+.t_three .t_right p{
+    line-height: 6vw;
+    font-size: 1.1vw;
+    font-family: -webkit-pictograph;
+    /* margin-left: 2vw; */
+    text-indent: 3em;
+    margin-bottom: 2vw;
+}
+.t_three .t_right figure{
+	    width: 100%;
+    height: 45vw;
+}
+.t_three .t_right figure img{
+    width: 64vw;
+    height: 36vw;
+    margin-left: -5vw;
+    box-shadow: 1px 1px 5px 5px grey;
+    transition: all 1s ease 0s;
+}
+.t_three .t_right figure img:hover{
+	border-radius: 10vw;
+}
+.t_three .t_right figure figcaption{
+	    font-family: -webkit-pictograph;
+    margin-top: 1vw;
+}
+.t_three em{
+	color:gray;
+	line-height: 5vw;
+	    margin-left: 13vw;
+    width: 67%;
+    display: block;
+}
+.t_foot{
+	width: 100%;
+    height: 90vw;
+    background: #1b1919;
+    color: rgb(51,51,51);
+}
+.t_foot hr{
+	width: 92%;
+	margin-left: 7%;
+	display: none;
+}
+.t_foot .t_foot_up{
+	width: 100%;
+    height: 40%;
+    display: none;
+    /*border: 1px solid red;*/
+}
+.t_foot .t_foot_up .t_up_left{
+	width: 42%;
+    height: 50%;
+    padding-left: 10vw;
+    padding-top: 5vw;
+}
+.t_foot .t_foot_up .t_up_left h6{
+	font-size: 1.1vw;
+    font-family: -webkit-body;
+    line-height: 3vw;
+}
+.t_foot .t_foot_up .t_up_left ul{
+	
+}
+.t_foot .t_foot_up .t_up_left ul li{
+	    width: 50%;
+    height: 50%;
+    line-height: 3vw;
+    /*background: red;*/
+    float: left;
+    font-size: 0.5vw;
+    font-family: "微软雅黑";
+}
+.t_foot .t_foot_up .t_up_right{
+	width: 20%;
+    height: 50%;
+    padding-left: 10vw;
+    padding-top: 5vw;
+}
+.t_foot .t_foot_up .t_up_right h6{
+	font-size: 1.1vw;
+    font-family: -webkit-body;
+    line-height: 3vw;
+}
+.t_foot .t_foot_up .t_up_right ul{
+	width: 100%;
+    height: 50%;
+    margin-top: 1.2vw;
+}
+.t_foot .t_foot_up .t_up_right ul li{
+	float: left;
+	margin-right: 4%;
+	cursor: pointer;
+}
+.t_foot .t_foot_up .t_up_right ul li img{
+	width: 2vw;
+    height: 1.3vw;
+
+}
+.t_foot .t_foot_down {
+	    width:96%;
+    height: 50%;
+    padding: 2vw;
+}
+.t_foot .t_foot_down .t_down_left{
+	/*float: left;*/
+    width: 100%;
+    height: 100%;
+    /*background: red;*/
+   
+}
+.t_foot .t_foot_down .t_down_left ul{
+	
+}
+.t_foot .t_foot_down .t_down_left ul li{
+    float: left;
+    /* margin-left: 6vw; */
+    /* margin-top: 4vw; */
+    width: 100%;
+    height: 10vw;
+    line-height: 10vw;
+    text-align: center;
+    border: 1px solid rgb(50,50,50);
+}
+.t_foot .t_foot_down .t_down_left ul li:nth-child(1):hover dl{
+	height: 70vw;
+	display: block;
+}
+.t_foot .t_foot_down .t_down_left ul li:nth-child(2):hover dl{
+	display: block;
+	height: 40vw;
+}
+.t_foot .t_foot_down .t_down_left ul li:nth-child(3):hover dl{
+	display: block;
+	height: 50vw;
+}
+.t_foot .t_foot_down .t_down_left ul li:nth-child(4):hover dl{
+	display: block;
+	height: 30vw;
+}
+.t_foot .t_foot_down .t_down_left ul li:nth-child(5):hover dl{
+	display: block;
+	height: 40vw;
+}
+.t_foot .t_foot_down .t_down_left ul li a{
+	font-size: 4.2vw;
+}
+.t_foot .t_foot_down .t_down_left ul li dl{
+	display: none;
+	background: black;
+	height: 0vw;
+	transition: all 1s ease 0s;
+}
+.t_foot .t_foot_down .t_down_left ul li dl dt{
+	line-height: 5vw;
+	height: 10vw;
+	width: 100%;
+}
+.t_foot .t_foot_down .t_down_right{
+	width: 40%;
+    height: 100%;
+    float: left;
+	margin-top: 2vw;
+	text-align: center;
+	
+    /*background: cyan;*/
+}
+.t_foot .t_foot_down .t_down_right h6{
+		font-size: 1.1vw;
+    font-family: -webkit-body;
+    line-height: 7vw;
+    width: 23vw;
+    height: 7vw;
+    border: 1px solid black;
+    border-radius: 3vw;
+}
+.t_foot .t_foot_down .t_down_right figure{
+	width: 7vw;
+    height: 5vw;
+    float: left;
+    position: relative;
+    cursor: pointer;
+    display: none;
+}
+.t_foot .t_foot_down .t_down_right figure:hover i{
+	height: 0vw;
+}
+.t_foot .t_foot_down .t_down_right figure i {
+	width: 9vw;
+    height: 9vw;
+    background: black;
+    opacity: 0.8;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: height 1s ease 0s;
+}
+.t_foot .t_foot_down .t_down_right figure img{
+	width: 9vw;
+    height: 9vw;
+}
+.t_foot .t_foot_down .t_down_right figure figcaption{
+	font-size: 1.1vw;
+    font-family: -webkit-body;
+    line-height: 3vw;
+    text-align: center;
+    margin-left: 2vw;
+}
