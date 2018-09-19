@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+            width: 100%;
+            height: 100%;
+        }
+        body {
+            background-image: url("images/q1.jpg");
+            background-size: 100%  auto;
+            position: relative;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #333;
+        }
+        .box{
+            background: #fff;
+            width: 400px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            position: absolute;
+            top: 50%;
+            left: 70%;
+            margin-top: -250px;
+            margin-left: -200px;
+        }
+        .box h2{
+            height: 40px;
+            line-height: 40px;
+            border-bottom: 1px solid #efefef;
+            font-size: 24px;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-family: inherit;
+            font-weight: 500;
+            color: inherit;
+        }
+        .box div{
+            padding: 10px 0;
+            line-height: 30px;
+            margin-bottom: 0px;
+        }
+        .box div span{
+            width: 100px;
+            display: inline-block;
+            text-align: right;
+            max-width: 100%;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .box div input{
+            width: 220px;
+            padding-left: 10px;
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+            margin: 0;
+            font: inherit;
+            color: inherit;
+        }
+        #login_btn{
+            background-color: rgb(134, 206, 47);
+            border-color: rgb(134, 206, 47);
+            cursor: not-allowed;
+            box-shadow: none;
+            opacity: .65;
+            width: 300px;
+            color: #fff;
+            margin: 0 auto;
+            display: block;
+            padding: 6px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            line-height: 1.42857143;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        
+    </div>
+    <div class="box">
+        <h2>
+            登录页面
+        </h2>
+        <div>
+            <p>
+                <span>用户名：</span>
+                <input type="text" id="username" placeholder="请输入用户名">
+            </p>
+        </div>
+        <div>
+            <p>
+                <span>密&emsp;码：</span>
+                <input type="text" placeholder="请输入密码" id="psw">
+            </p>
+        </div>
+        <div></div>
+        <div>
+            <button id="login_btn" disabled="disabled">登录</button>
+        </div>
+        <div>
+            <a href="register.html" style="float: right;">去注册</a> 
+
+        </div>
+    </div>
+    <script src="http://172.16.53.124/1709B%20h5/每周项目/后台管理系统/lib/jquery-3.2.1.min.js"></script>
+    <script src="http://172.16.53.124/1709B%20h5/每周项目/后台管理系统/cookie.js"></script>
+    <script>    
+                var zhu = Cookie.getCookie('zhu');
+                console.log(Cookie.getCookie('zhu'));
+                if(zhu){
+                    window.open('https://user.qzone.qq.com/2630819954/main','_self');
+                }
+                var username = $('#username');
+                var psw = $('#psw');
+                var login_btn = $('#login_btn');
+                psw.bind("input propertychange change",function(){
+                    lan();
+                })
+                username.bind("input propertychange change",function(){
+                    lan();
+                })
+                
+                        login_btn.click(function () {
+                            var o = {
+                                username:username.val(),
+                                psw:psw.val()
+                            }
+                            $.post('php/login.php',o,function (data) {
+                                if (parseInt(data)) {
+                                    alert('登录成功,欢迎'+username.val());
+                                    Cookie.setCookie('zhu',username.val(),'d10');
+                                    console.log(Cookie.getCookie('zhu'));
+                                    $.post('http://172.16.53.124/1709B%20h5/每周项目/后台管理系统/php/getOne.php',o,function(Ha){
+                                        console.log(Ha);
+                                        window.open('http://172.16.53.124/1709B%20h5/每周项目/后台管理系统/index.html','_self');
+                                    })
+                                }else{
+                                    alert('登录失败，请核对账号密码！');
+                                }
+                            });
+                        })
+        
+
+                function lan(){
+                    if(username.val() == ''){
+                        login_btn.css('cursor','not-allowed').css('background','#5cb85c');
+                        login_btn.attr('disabled','disabled');
+                        return;
+                    }else{
+                        if(psw.val() == ''){
+                            login_btn.css('cursor','not-allowed').css('background','#5cb85c');
+                            login_btn.attr('disabled','disabled');
+                            return;
+                        }else{
+                            login_btn.css('cursor','pointer').css('background','green');
+                            login_btn.attr('disabled',false);
+                        }
+                    }
+                }
+            </script>
+</body>
+</html>
