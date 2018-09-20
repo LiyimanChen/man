@@ -8,7 +8,8 @@ html,body{
     height: 100%;
 }
 body {
-    background-image: url("../images/q1.jpg");
+    background-image: url("../images/q1.jpg") no-repeat;
+
     background-size: 100%  auto;
     position: relative;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
