@@ -16,20 +16,12 @@
             height: 100%;
         }
         body {
-            background-image: url("images/q1.jpg");
-            background-size: 100%  auto;
+            background: #e9e78f;
             position: relative;
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             font-size: 14px;
             line-height: 1.42857143;
             color: #333;
-        }
-        .logo{
-            width: 400px;
-            position: absolute;
-            top: 20%;
-            left: 20%;
-            z-index: 999;
         }
         .box{
             background: #fff;
@@ -38,7 +30,7 @@
             border-radius: 5px;
             position: absolute;
             top: 50%;
-            left: 70%;
+            left: 50%;
             margin-top: -250px;
             margin-left: -200px;
         }
@@ -78,8 +70,8 @@
             color: inherit;
         }
         #login_btn{
-            background-color: rgb(134, 206, 47);
-            border-color: rgb(134, 206, 47);
+            background-color: #5cb85c;
+            border-color: #4cae4c;
             cursor: not-allowed;
             box-shadow: none;
             opacity: .65;
@@ -94,90 +86,100 @@
             border: 1px solid transparent;
             border-radius: 4px;
         }
-        ul{
-            float: right;
-        }
-        ul li {
-            list-style: none;
-            float:left;
-           
-        }
-        ul li a{
-            text-decoration: none;
+        #ups{
+            text-align: center;
+            font:bold;
+            color:red;
         }
     </style>
 </head>
 <body>
-    <div class="logo">
-        <img src="images/q2.png" alt="">
-    </div>
     <div class="box">
         <h2>
-           账号密码登录
+            注册页面
         </h2>
         <div>
             <p>
-                <span>QQ号：</span>
-                <input type="text" id="username" placeholder="支持QQ号/邮箱/手机号登录">
+                <span>用户名：</span>
+                <input type="text" id="username" placeholder="请输入用户名">
             </p>
+            <p id="ups"></p>
         </div>
         <div>
             <p>
                 <span>密&emsp;码：</span>
-                <input type="text" placeholder="密码" id="psw">
+                <input type="text" placeholder="请输入密码" id="psw">
             </p>
         </div>
         <div></div>
         <div>
-            <button id="login_btn" disabled="disabled">登录</button>
+            <button id="login_btn" disabled="disabled">提交</button>
         </div>
         <div>
-            <ul>
-                <li><a href="#">忘记密码？ </a> |　</li>
-                <li><a href="http://172.16.53.124/1709B%20h5/每周项目/后台管理系统/register.html"> 注册新账号 </a> | 　</li>
-                <li><a href="#"> 意见反馈</a></li>
-            </ul>
+            <a href="login.html" style="float: right;">回到登录</a>
         </div>
     </div>
-    <script src="http://172.16.53.124/1709B%20h5/每周项目/后台管理系统/lib/jquery-3.2.1.min.js"></script>
-    <script src="http://172.16.53.124/1709B%20h5/每周项目/后台管理系统/cookie.js"></script>
-    <script>    
+    <script src="lib/jquery-3.2.1.min.js"></script>
+    <script src="cookie.js"></script>
+	<script>
                 var zhu = Cookie.getCookie('zhu');
                 console.log(Cookie.getCookie('zhu'));
                 if(zhu){
-                    window.open('https://user.qzone.qq.com/2630819954/main','_self');
+                    window.open('','_self');
                 }
                 var username = $('#username');
                 var psw = $('#psw');
                 var login_btn = $('#login_btn');
+                var myreg=/^[a-zA-Z0-9_-]{4,16}$/;//用户名验证
+                var pPattern = /^.*(?=.{6,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$/;//密码验证
+                username.on('change',function(){
+                    if(!myreg.test(username.val())){
+                        alert('请输入用户名，4到16位（字母，数字，下划线，减号）');
+                        username.val('');
+                        return;
+                    }
+                    $.get('php/get.php',{user:username.val()},function(data){
+                        console.log(data);
+                        if (parseInt(data)) {
+                            $('#ups').html('该账号已注册 ，请重新输入');
+                            username.val('');
+                            return;
+                        }else{
+                            $('#ups').html('可以注册');
+                        }
+                    })
+                })
+                psw.on('change',function(){
+                    if(!myreg.test(psw.val())){
+                        alert('密码强度，最少6位，包括至少1个大写字母，1个小写字母，1个数字，1个特殊字符）');
+                        psw.val('');
+                        return;
+                    }
+                })
                 psw.bind("input propertychange change",function(){
                     lan();
                 })
                 username.bind("input propertychange change",function(){
                     lan();
                 })
-                
+                    $.post('php/check.php',function(obj){
+                        console.log(obj);
                         login_btn.click(function () {
                             var o = {
                                 username:username.val(),
-                                psw:psw.val()
+                                psw:psw.val(),
+                                id:obj
                             }
-                            $.post('php/login.php',o,function (data) {
+                            $.post('php/register.php',o,function (data) {
                                 if (parseInt(data)) {
-                                    alert('登录成功,欢迎'+username.val());
-                                    Cookie.setCookie('zhu',username.val(),'d10');
-                                    console.log(Cookie.getCookie('zhu'));
-                                    $.post('http://172.16.53.124/1709B%20h5/每周项目/后台管理系统/php/getOne.php',o,function(Ha){
-                                        console.log(Ha);
-                                        window.open('http://172.16.53.124/1709B%20h5/每周项目/后台管理系统/index.html','_self');
-                                    })
+                                    alert('注册成功,请登录'+username.val());
+                                    window.open('login.html?i#'+obj,'_self');
                                 }else{
-                                    alert('登录失败，请核对账号密码！');
+                                    alert('注册失败，请核对账号密码！');
                                 }
                             });
                         })
-        
-
+                    })
                 function lan(){
                     if(username.val() == ''){
                         login_btn.css('cursor','not-allowed').css('background','#5cb85c');
