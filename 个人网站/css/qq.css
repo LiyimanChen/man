@@ -1,0 +1,99 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+html,body{
+    width: 100%;
+    height: 100%;
+}
+body {
+    background-image: url("images/q1.jpg");
+    background-size: 100%  auto;
+    position: relative;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+}
+.logo{
+    width: 400px;
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    z-index: 999;
+}
+.box{
+    background: #fff;
+    width: 400px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    position: absolute;
+    top: 50%;
+    left: 70%;
+    margin-top: -250px;
+    margin-left: -200px;
+}
+.box h2{
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #efefef;
+    font-size: 24px;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-family: inherit;
+    font-weight: 500;
+    color: inherit;
+}
+.box div{
+    padding: 10px 0;
+    line-height: 30px;
+    margin-bottom: 0px;
+}
+.box div span{
+    width: 100px;
+    display: inline-block;
+    text-align: right;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.box div input{
+    width: 220px;
+    padding-left: 10px;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+}
+#login_btn{
+    background-color: rgb(134, 206, 47);
+    border-color: rgb(134, 206, 47);
+    cursor: not-allowed;
+    box-shadow: none;
+    opacity: .65;
+    width: 300px;
+    color: #fff;
+    margin: 0 auto;
+    display: block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+ul{
+    float: right;
+}
+ul li {
+    list-style: none;
+    float:left;
+   
+}
+ul li a{
+    text-decoration: none;
+}
