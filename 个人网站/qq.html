@@ -4,108 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <style>
-        *{
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        html,body{
-            width: 100%;
-            height: 100%;
-        }
-        body {
-            background-image: url("images/q1.jpg");
-            background-size: 100%  auto;
-            position: relative;
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            font-size: 14px;
-            line-height: 1.42857143;
-            color: #333;
-        }
-        .logo{
-            width: 400px;
-            position: absolute;
-            top: 20%;
-            left: 20%;
-            z-index: 999;
-        }
-        .box{
-            background: #fff;
-            width: 400px;
-            padding: 10px 20px;
-            border-radius: 5px;
-            position: absolute;
-            top: 50%;
-            left: 70%;
-            margin-top: -250px;
-            margin-left: -200px;
-        }
-        .box h2{
-            height: 40px;
-            line-height: 40px;
-            border-bottom: 1px solid #efefef;
-            font-size: 24px;
-            text-align: center;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            font-family: inherit;
-            font-weight: 500;
-            color: inherit;
-        }
-        .box div{
-            padding: 10px 0;
-            line-height: 30px;
-            margin-bottom: 0px;
-        }
-        .box div span{
-            width: 100px;
-            display: inline-block;
-            text-align: right;
-            max-width: 100%;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        .box div input{
-            width: 220px;
-            padding-left: 10px;
-            font-family: inherit;
-            font-size: inherit;
-            line-height: inherit;
-            margin: 0;
-            font: inherit;
-            color: inherit;
-        }
-        #login_btn{
-            background-color: rgb(134, 206, 47);
-            border-color: rgb(134, 206, 47);
-            cursor: not-allowed;
-            box-shadow: none;
-            opacity: .65;
-            width: 300px;
-            color: #fff;
-            margin: 0 auto;
-            display: block;
-            padding: 6px 12px;
-            margin-bottom: 0;
-            font-size: 14px;
-            line-height: 1.42857143;
-            border: 1px solid transparent;
-            border-radius: 4px;
-        }
-        ul{
-            float: right;
-        }
-        ul li {
-            list-style: none;
-            float:left;
-           
-        }
-        ul li a{
-            text-decoration: none;
-        }
-    </style>
+    <link rel="stylesheet" href="css/qq.css">
+    <title>登录QQ</title>
 </head>
 <body>
     <div class="logo">
@@ -134,13 +34,13 @@
         <div>
             <ul>
                 <li><a href="#">忘记密码？ </a> |　</li>
-                <li><a href="http://172.16.53.124/1709B%20h5/每周项目/后台管理系统/register.html"> 注册新账号 </a> | 　</li>
+                <li><a href="https://liyimanchen.github.io/man/%E4%B8%AA%E4%BA%BA%E7%BD%91%E7%AB%99/qq2.html"> 注册新账号 </a> | 　</li>
                 <li><a href="#"> 意见反馈</a></li>
             </ul>
         </div>
     </div>
-    <script src="http://172.16.53.124/1709B%20h5/每周项目/后台管理系统/lib/jquery-3.2.1.min.js"></script>
-    <script src="http://172.16.53.124/1709B%20h5/每周项目/后台管理系统/cookie.js"></script>
+    <script src="https://liyimanchen.github.io/man/%E4%B8%AA%E4%BA%BA%E7%BD%91%E7%AB%99/lib/jquery-3.2.1.min.js"></script>
+    <script src="https://liyimanchen.github.io/man/%E4%B8%AA%E4%BA%BA%E7%BD%91%E7%AB%99/cookie.js"></script>
     <script>    
                 var zhu = Cookie.getCookie('zhu');
                 console.log(Cookie.getCookie('zhu'));
@@ -167,9 +67,9 @@
                                     alert('登录成功,欢迎'+username.val());
                                     Cookie.setCookie('zhu',username.val(),'d10');
                                     console.log(Cookie.getCookie('zhu'));
-                                    $.post('http://172.16.53.124/1709B%20h5/每周项目/后台管理系统/php/getOne.php',o,function(Ha){
+                                    $.post('https://liyimanchen.github.io/man/%E4%B8%AA%E4%BA%BA%E7%BD%91%E7%AB%99/php/getOne.php',o,function(Ha){
                                         console.log(Ha);
-                                        window.open('http://172.16.53.124/1709B%20h5/每周项目/后台管理系统/index.html','_self');
+                                        window.open('https://liyimanchen.github.io/man/%E4%B8%AA%E4%BA%BA%E7%BD%91%E7%AB%99/index.html','_self');
                                     })
                                 }else{
                                     alert('登录失败，请核对账号密码！');
