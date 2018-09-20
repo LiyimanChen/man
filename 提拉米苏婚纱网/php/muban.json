@@ -1,0 +1,66 @@
+{
+	"code":200,
+	"msg":"成功！",
+	"pic":[
+		{
+			"card":"Pink good mood",
+			"author":"Sanya",
+			"pic":"../imgs/041.jpg"
+		},
+		{
+			"card":"夏日阳光滩",
+			"author":"Sanya",
+			"pic":"../imgs/043.jpg"
+		},
+		{
+			"card":"恋爱绘画阁",
+			"author":"Sanya",
+			"pic":"../imgs/030.jpg"
+		},
+		{
+			"card":"暮光圆舞曲",
+			"author":"Waltz of twilight",
+			"pic":"../imgs/09.jpg"
+		},
+		{
+			"card":"水晶色的浪漫",
+			"author":"Sanya",
+			"pic":"../imgs/095.jpg"
+		},
+		{
+			"card":"落日沙滩",
+			"author":"Sanya",
+			"pic":"../imgs/096.jpg"
+		},
+		{
+			"card":"Ducky!Ducky",
+			"author":"Sanya",
+			"pic":"../imgs/097.jpg"
+		},
+		{
+			"card":"遇见彩虹门",
+			"author":"Sanya",
+			"pic":"../imgs/020.jpg"
+		},
+		{
+			"card":"干杯吧！夏风",
+			"author":"Sanya",
+			"pic":"../imgs/98.jpg"
+		},
+		{
+			"card":"泳池派对",
+			"author":"Tiramisu 2017",
+			"pic":"../imgs/099.jpg"
+		},
+		{
+			"card":"天使的蓝色魔力",
+			"author":"Sanya",
+			"pic":"../imgs/031.jpg"
+		},
+		{
+			"card":"浪漫星光屋",
+			"author":"Sanya",
+			"pic":"../imgs/042.jpg"
+		}
+	]
+}
