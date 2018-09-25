@@ -12,11 +12,11 @@
             if(asa){
                 $('#user').html(asa);
             }else{
-                window.open('http://172.16.53.124/1709B%20h5/每周项目/后台管理系统/login.html','_self');
+                window.open('../login.html','_self');
             }
         // 退出登录
         $('#btn_tui').on('click',function(){
-            window.location.replace('http://172.16.53.124/1709B%20h5/每周项目/后台管理系统/index.html')
+            window.location.replace('../index.html')
             Cookie.deleteCookie('zhu');
         })
         var o = 0;
@@ -25,7 +25,7 @@
             $('.user_mo').addClass('dis_b');
             // $('#studentTable').html('');
             // 数据获取函数
-            $.post('http://172.16.53.124/1709B%20h5/每周项目/后台管理系统/php/getOne.php',function(zong){
+            $.post('../php/getOne.php',function(zong){
                 // 获取总条数
                 var con = zong-5;
                 $('#pp').html(con);
@@ -50,7 +50,7 @@
         
         function lan(){
             $('#tbody').html('');
-            $.post('http://172.16.53.124/1709B%20h5/每周项目/后台管理系统/php/getAll.php',{o:o},function(data){
+            $.post('../php/getAll.php',{o:o},function(data){
                 var dataObj = typeof data == 'object' ? data : eval('('+data+')');
                 var list = dataObj.data;
                 console.log(list);
@@ -62,7 +62,7 @@
                     var nb = $(this).parent().parent().children().eq(0).html();
                     var de = $(this).parent().parent();
                     console.log(nb);
-                    $.post('http://172.16.53.124/1709B%20h5/每周项目/后台管理系统/php/delete.php',{nb:nb},function(data){
+                    $.post('../php/delete.php',{nb:nb},function(data){
                         if(parseInt(data)){
                             de.remove();
                             alert('成功删除一条数据。');
@@ -85,7 +85,7 @@
         $('.user_get').on('click',function(){
             $('.Sec_ul li').removeClass('dis_b');
             $('.user_chuang').addClass('dis_b');
-            $.post('http://172.16.53.124/1709B%20h5/每周项目/后台管理系统/php/check.php',function(data){
+            $.post('../php/check.php',function(data){
                 $('#id').val(data);
             })
             var myreg=/^[a-zA-Z0-9_-]{4,16}$/;//用户名验证
@@ -95,7 +95,7 @@
                     $('#username').val('');
                     return;
                 }
-                $.get('http://172.16.53.124/1709B%20h5/每周项目/后台管理系统/php/get.php',{user:$('#username').val()},function(data){
+                $.get('../php/get.php',{user:$('#username').val()},function(data){
                     console.log(data);
                     if (parseInt(data)) {
                         lock = true;
@@ -119,7 +119,7 @@
                     return;
                 }
                 
-                $.post('http://172.16.53.124/1709B%20h5/每周项目/后台管理系统/php/add.php',op,function(data){
+                $.post('../php/add.php',op,function(data){
                     if(parseInt(data)){
                         alert('添加成功！！！');
                         $('#username').val('');
